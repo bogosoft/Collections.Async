@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bogosoft.Collections.Async", "Bogosoft.Collections.Async\Bogosoft.Collections.Async.csproj", "{8B3CA935-A774-488C-BD79-C3E5F1B13F3F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bogosoft.Collections.Async.Tests", "Bogosoft.Collections.Async.Tests\Bogosoft.Collections.Async.Tests.csproj", "{96FBE305-EA76-4E76-8700-515E9C7D2CF8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8B3CA935-A774-488C-BD79-C3E5F1B13F3F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B3CA935-A774-488C-BD79-C3E5F1B13F3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B3CA935-A774-488C-BD79-C3E5F1B13F3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B3CA935-A774-488C-BD79-C3E5F1B13F3F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96FBE305-EA76-4E76-8700-515E9C7D2CF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96FBE305-EA76-4E76-8700-515E9C7D2CF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96FBE305-EA76-4E76-8700-515E9C7D2CF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96FBE305-EA76-4E76-8700-515E9C7D2CF8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
