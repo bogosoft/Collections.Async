@@ -15,7 +15,7 @@ namespace Bogosoft.Collections.Async
         /// <returns>A cursor.</returns>
         public static ICursor<T> ToCursor<T>(this IEnumerable<T> items)
         {
-            return new MemoryCursor<T>(items);
+            return new EnumerableCursor<T>(items);
         }
     }
 }

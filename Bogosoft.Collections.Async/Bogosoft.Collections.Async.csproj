@@ -47,7 +47,7 @@
     <Compile Include="EmptyCursor.cs" />
     <Compile Include="EnumerableExtensions.cs" />
     <Compile Include="ICursor.cs" />
-    <Compile Include="MemoryCursor.cs" />
+    <Compile Include="EnumerableCursor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

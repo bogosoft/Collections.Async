@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 namespace Bogosoft.Collections.Async
 {
     /// <summary>
-    /// An in-memory implementation of the <see cref="ICursor{T}"/> contract.
+    /// An <see cref="IEnumerable{T}"/> adapter implementation of the <see cref="ICursor{T}"/> contract.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public sealed class MemoryCursor<T> : ICursor<T>
+    public sealed class EnumerableCursor<T> : ICursor<T>
     {
         private IEnumerator<T> enumerator;
 
@@ -33,19 +33,19 @@ namespace Bogosoft.Collections.Async
         public bool IsExpended { get; private set; }
 
         /// <summary>
-        /// Create a new instance of the <see cref="MemoryCursor{T}"/> class.
+        /// Create a new instance of the <see cref="EnumerableCursor{T}"/> class.
         /// </summary>
         /// <param name="enumerator">A typed enumerator.</param>
-        public MemoryCursor(IEnumerator<T> enumerator)
+        public EnumerableCursor(IEnumerator<T> enumerator)
         {
             this.enumerator = enumerator;
         }
 
         /// <summary>
-        /// Create a new instance of the <see cref="MemoryCursor{T}"/> class.
+        /// Create a new instance of the <see cref="EnumerableCursor{T}"/> class.
         /// </summary>
         /// <param name="enumerable">An enumerable of items.</param>
-        public MemoryCursor(IEnumerable<T> enumerable)
+        public EnumerableCursor(IEnumerable<T> enumerable)
             : this(enumerable.GetEnumerator())
         {
         }

@@ -148,7 +148,7 @@ namespace Bogosoft.Collections.Async.Tests
         {
             var odd = new int[] { 1, 3, 5, 7, 9 };
 
-            var cursor = new MemoryCursor<int>(odd);
+            var cursor = new EnumerableCursor<int>(odd);
 
             cursor.IsDisposed.ShouldBeFalse();
 
