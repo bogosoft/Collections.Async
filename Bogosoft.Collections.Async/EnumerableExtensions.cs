@@ -8,17 +8,6 @@ namespace Bogosoft.Collections.Async
     public static class EnumerableExtensions
     {
         /// <summary>
-        /// Convert the current enumerable type to a cursor.
-        /// </summary>
-        /// <typeparam name="T">The type of the objects to enumerate.</typeparam>
-        /// <param name="items">The current <see cref="IEnumerable{T}"/> implementation.</param>
-        /// <returns>A cursor.</returns>
-        public static ICursor<T> ToCursor<T>(this IEnumerable<T> items)
-        {
-            return new EnumerableCursor<T>(items);
-        }
-
-        /// <summary>
         /// Convert the current enumerable type to an <see cref="ITraversable{T}"/> type.
         /// </summary>
         /// <typeparam name="T">The type of the items in the collection.</typeparam>

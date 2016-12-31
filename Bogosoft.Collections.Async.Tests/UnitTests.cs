@@ -26,13 +26,13 @@ namespace Bogosoft.Collections.Async.Tests
         }
 
         [TestCase]
-        public void CanConvertEnumerableToCursor()
+        public void CanConvertEnumerableToTraversable()
         {
             var ints = new int[] { 0, 1, 2, 3, 4 };
 
             (ints is IEnumerable<int>).ShouldBeTrue();
 
-            (ints.ToCursor() is ICursor<int>).ShouldBeTrue();
+            (ints.ToTraversable() is ITraversable<int>).ShouldBeTrue();
         }
 
         [TestCase]
@@ -135,35 +135,6 @@ namespace Bogosoft.Collections.Async.Tests
             (await traversable.CopyToAsync(list, 0, count)).ShouldEqual(count);
 
             list.ShouldBeEqualToSequence(guids);
-        }
-
-        [TestCase]
-        public async Task CanTraverseMemoryCursorAsync()
-        {
-            var odd = new int[] { 1, 3, 5, 7, 9 };
-
-            var cursor = new EnumerableCursor<int>(odd);
-
-            cursor.IsDisposed.ShouldBeFalse();
-
-            cursor.IsExpended.ShouldBeFalse();
-
-            var index = 0;
-
-            while(await cursor.MoveNextAsync())
-            {
-                odd[index++].ShouldEqual(await cursor.GetCurrentAsync());
-            }
-
-            (await cursor.MoveNextAsync()).ShouldBeFalse();
-
-            cursor.IsExpended.ShouldBeTrue();
-
-            cursor.IsDisposed.ShouldBeFalse();
-
-            cursor.Dispose();
-
-            cursor.IsDisposed.ShouldBeTrue();
         }
 
         [TestCase]
