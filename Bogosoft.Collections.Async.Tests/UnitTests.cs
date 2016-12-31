@@ -48,7 +48,7 @@ namespace Bogosoft.Collections.Async.Tests
 
             converted.ShouldBeType<int[]>();
 
-            converted.ShouldBeEqualToSequence(fibonacci);
+            converted.SequenceEqual(fibonacci).ShouldBeTrue();
         }
 
         [TestCase]
@@ -93,7 +93,7 @@ namespace Bogosoft.Collections.Async.Tests
 
             (await traversable.CopyToAsync(target, 0, strings.Length)).ShouldEqual(strings.Length);
 
-            target.ShouldBeEqualToSequence(strings);
+            target.SequenceEqual(strings).ShouldBeTrue();
         }
 
         [TestCase]
@@ -134,7 +134,7 @@ namespace Bogosoft.Collections.Async.Tests
 
             (await traversable.CopyToAsync(list, 0, count)).ShouldEqual(count);
 
-            list.ShouldBeEqualToSequence(guids);
+            list.SequenceEqual(guids).ShouldBeTrue();
         }
 
         [TestCase]
