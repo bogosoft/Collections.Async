@@ -26,7 +26,7 @@ namespace Bogosoft.Collections.Async.Tests
         }
 
         [TestCase]
-        public async Task CanConvertToArray()
+        public async Task CanConvertToArrayAsync()
         {
             var fibonacci = new int[] { 0, 1, 1, 2, 3, 5, 8, 13 };
 
@@ -44,7 +44,7 @@ namespace Bogosoft.Collections.Async.Tests
         }
 
         [TestCase]
-        public async Task CanConvertToList()
+        public async Task CanConvertToListAsync()
         {
             var dates = new DateTime[]
             {
@@ -67,7 +67,7 @@ namespace Bogosoft.Collections.Async.Tests
         }
 
         [TestCase]
-        public async Task CanCopyToArrayCompletely()
+        public async Task CanCopyToArrayCompletelyAsync()
         {
             var strings = new string[] { "one", "two", "three", "four", "five" };
 
@@ -87,7 +87,7 @@ namespace Bogosoft.Collections.Async.Tests
         }
 
         [TestCase]
-        public async Task CanCopyToArrayPartially()
+        public async Task CanCopyToArrayPartiallyAsync()
         {
             var ints = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
 
@@ -107,7 +107,7 @@ namespace Bogosoft.Collections.Async.Tests
         }
 
         [TestCase]
-        public async Task CanCopyToListCompletely()
+        public async Task CanCopyToListCompletelyAsync()
         {
             var count = new Random().Next(32, 64);
 
@@ -134,7 +134,7 @@ namespace Bogosoft.Collections.Async.Tests
         }
 
         [TestCase]
-        public async Task CanTraverseMemoryCursor()
+        public async Task CanTraverseMemoryCursorAsync()
         {
             var odd = new int[] { 1, 3, 5, 7, 9 };
 
@@ -163,7 +163,7 @@ namespace Bogosoft.Collections.Async.Tests
         }
 
         [TestCase]
-        public async Task EmptyCursorThrowsNotSupportedExceptionOnGetCurrent()
+        public async Task EmptyCursorThrowsNotSupportedExceptionOnGetCurrentAsync()
         {
             var cursor = Cursor<int>.Empty;
 
