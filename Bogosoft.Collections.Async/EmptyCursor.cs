@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace Bogosoft.Collections.Async
 {
-    internal class EmptyCursor<T> : ICursor<T>
+    internal struct EmptyCursor<T> : ICursor<T>
     {
         public bool IsDisposed { get; private set; }
 

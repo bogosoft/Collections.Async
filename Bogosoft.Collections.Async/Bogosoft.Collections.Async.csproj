@@ -43,12 +43,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cursor.cs" />
-    <Compile Include="CursorExtensions.cs" />
     <Compile Include="EmptyCursor.cs" />
     <Compile Include="EnumerableExtensions.cs" />
+    <Compile Include="EnumerableTraverser.cs" />
     <Compile Include="ICursor.cs" />
     <Compile Include="EnumerableCursor.cs" />
+    <Compile Include="ITraversable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Traversable.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Bogosoft.Collections.Async.nuspec" />

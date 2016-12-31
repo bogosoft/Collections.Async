@@ -40,13 +40,11 @@ namespace Bogosoft.Collections.Async.Tests
         {
             var fibonacci = new int[] { 0, 1, 1, 2, 3, 5, 8, 13 };
 
-            var cursor = fibonacci.ToCursor();
+            var traversable = fibonacci.ToTraversable();
 
-            var converted = await cursor.ToArrayAsync();
+            (traversable is ITraversable<int>).ShouldBeTrue();
 
-            (await cursor.MoveNextAsync()).ShouldBeFalse();
-
-            cursor.IsExpended.ShouldBeTrue();
+            var converted = await traversable.ToArrayAsync();
 
             converted.ShouldBeType<int[]>();
 
@@ -63,17 +61,25 @@ namespace Bogosoft.Collections.Async.Tests
                 DateTime.Now.AddDays(2)
             };
 
-            var cursor = dates.ToCursor();
+            var traversable = dates.ToTraversable();
 
-            var list = await cursor.ToListAsync();
+            (traversable is ITraversable<DateTime>).ShouldBeTrue();
 
-            (await cursor.MoveNextAsync()).ShouldBeFalse();
-
-            cursor.IsExpended.ShouldBeTrue();
+            var list = await traversable.ToListAsync();
 
             list.ShouldBeType<List<DateTime>>();
 
-            list.ShouldBeEqualToSequence(dates);
+            list.SequenceEqual(dates).ShouldBeTrue();
+        }
+
+        [TestCase]
+        public async Task CanConvertTraversableToArrayAsync()
+        {
+            var ints = RandomIntegers.ToArray();
+
+            var traversable = ints.ToTraversable();
+
+            ints.SequenceEqual(await traversable.ToArrayAsync()).ShouldBeTrue();
         }
 
         [TestCase]
@@ -81,17 +87,11 @@ namespace Bogosoft.Collections.Async.Tests
         {
             var strings = new string[] { "one", "two", "three", "four", "five" };
 
-            var cursor = strings.ToCursor();
+            var traversable = strings.ToTraversable();
 
             var target = new string[strings.Length];
 
-            (await cursor.CopyToAsync(target, 0, strings.Length)).ShouldEqual(strings.Length);
-
-            (await cursor.MoveNextAsync()).ShouldBeFalse();
-
-            cursor.IsExpended.ShouldBeTrue();
-
-            cursor.IsDisposed.ShouldBeFalse();
+            (await traversable.CopyToAsync(target, 0, strings.Length)).ShouldEqual(strings.Length);
 
             target.ShouldBeEqualToSequence(strings);
         }
@@ -103,9 +103,9 @@ namespace Bogosoft.Collections.Async.Tests
 
             var target = new int[ints.Length];
 
-            var cursor = ints.ToCursor();
+            var traversable = ints.ToTraversable();
 
-            (await cursor.CopyToAsync(target, 3, 3)).ShouldEqual(3);
+            (await traversable.CopyToAsync(target, 3, 3)).ShouldEqual(3);
 
             for(var i = 0; i < 4; i++)
             {
@@ -128,17 +128,11 @@ namespace Bogosoft.Collections.Async.Tests
                 guids[i] = Guid.NewGuid();
             }
 
-            var cursor = guids.ToCursor();
+            var traversable = guids.ToTraversable();
 
             var list = new List<Guid>(new Guid[count]);
 
-            (await cursor.CopyToAsync(list, 0, count)).ShouldEqual(count);
-
-            (await cursor.MoveNextAsync()).ShouldBeFalse();
-
-            cursor.IsExpended.ShouldBeTrue();
-
-            cursor.IsDisposed.ShouldBeFalse();
+            (await traversable.CopyToAsync(list, 0, count)).ShouldEqual(count);
 
             list.ShouldBeEqualToSequence(guids);
         }

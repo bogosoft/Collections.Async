@@ -16,7 +16,7 @@ namespace Bogosoft.Collections.Async
         bool IsDisposed { get; }
 
         /// <summary>
-        /// Get a value indicating whether the current cursor has finished traversing.
+        /// Get a value indicating whether the current cursor has moved past its last record.
         /// </summary>
         bool IsExpended { get; }
 
