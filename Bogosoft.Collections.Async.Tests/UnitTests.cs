@@ -26,6 +26,16 @@ namespace Bogosoft.Collections.Async.Tests
         }
 
         [TestCase]
+        public void CanConvertEnumerableToCursor()
+        {
+            var ints = new int[] { 0, 1, 2, 3, 4 };
+
+            (ints is IEnumerable<int>).ShouldBeTrue();
+
+            (ints.ToCursor() is ICursor<int>).ShouldBeTrue();
+        }
+
+        [TestCase]
         public async Task CanConvertToArrayAsync()
         {
             var fibonacci = new int[] { 0, 1, 1, 2, 3, 5, 8, 13 };
