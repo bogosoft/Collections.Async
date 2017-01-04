@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 namespace Bogosoft.Collections.Async
 {
     /// <summary>
-    /// An in-memory implementation of the <see cref="IAsyncQueue{T}"/> contract.
+    /// A locking, in-memory implementation of the <see cref="IAsyncQueue{T}"/> contract.
     /// </summary>
     /// <typeparam name="T">The type of the queued items.</typeparam>
     public sealed class AsyncQueue<T> : IAsyncQueue<T>
@@ -14,6 +14,8 @@ namespace Bogosoft.Collections.Async
         internal struct Cursor : ICursor<T>
         {
             private Queue<T>.Enumerator enumerator;
+
+            private object @lock;
 
             public bool IsDisposed { get; private set; }
 
@@ -23,6 +25,8 @@ namespace Bogosoft.Collections.Async
             {
                 this.enumerator = enumerator;
 
+                @lock = new object();
+
                 IsDisposed = false;
                 IsExpended = false;
             }
@@ -31,33 +35,47 @@ namespace Bogosoft.Collections.Async
             {
                 if (!IsDisposed)
                 {
-                    enumerator.Dispose();
+                    lock (@lock)
+                    {
+                        enumerator.Dispose();
 
-                    IsDisposed = true;
+                        IsDisposed = true;
+                    }
                 }
             }
 
             public Task<T> GetCurrentAsync(CancellationToken token)
             {
-                return Task.FromResult(enumerator.Current);
+                lock (@lock)
+                {
+                    return Task.FromResult(enumerator.Current);
+                }
             }
 
             public Task<bool> MoveNextAsync(CancellationToken token)
             {
-                if(IsExpended || token.IsCancellationRequested)
+                if (token.IsCancellationRequested)
                 {
                     return Task.FromResult(false);
                 }
 
-                if (enumerator.MoveNext())
+                lock (@lock)
                 {
-                    return Task.FromResult(true);
-                }
-                else
-                {
-                    IsExpended = true;
+                    if (IsExpended)
+                    {
+                        return Task.FromResult(false);
+                    }
 
-                    return Task.FromResult(false);
+                    if (enumerator.MoveNext())
+                    {
+                        return Task.FromResult(true);
+                    }
+                    else
+                    {
+                        IsExpended = true;
+
+                        return Task.FromResult(false);
+                    }
                 }
             }
         }
@@ -98,9 +116,12 @@ namespace Bogosoft.Collections.Async
                 return Task.FromResult(false);
             }
 
-            queue.Clear();
+            lock (queue)
+            {
+                queue.Clear();
 
-            return Task.FromResult(true);
+                return Task.FromResult(true);
+            }
         }
 
         /// <summary>
@@ -120,12 +141,15 @@ namespace Bogosoft.Collections.Async
         {
             token.ThrowIfCancellationRequested();
 
-            if(queue.Count == 0)
+            lock (queue)
             {
-                throw new InvalidOperationException("Queue is empty.");
-            }
+                if (queue.Count == 0)
+                {
+                    throw new InvalidOperationException("Queue is empty.");
+                }
 
-            return Task.FromResult(queue.Dequeue());
+                return Task.FromResult(queue.Dequeue());
+            }
         }
 
         /// <summary>
@@ -146,9 +170,12 @@ namespace Bogosoft.Collections.Async
                 return Task.FromResult(false);
             }
 
-            queue.Enqueue(item);
+            lock (queue)
+            {
+                queue.Enqueue(item);
 
-            return Task.FromResult(true);
+                return Task.FromResult(true);
+            }
         }
 
         /// <summary>
@@ -189,12 +216,15 @@ namespace Bogosoft.Collections.Async
         {
             token.ThrowIfCancellationRequested();
 
-            if(queue.Count == 0)
+            lock (queue)
             {
-                throw new InvalidOperationException("Queue is empty.");
-            }
+                if (queue.Count == 0)
+                {
+                    throw new InvalidOperationException("Queue is empty.");
+                }
 
-            return Task.FromResult(queue.Peek());
+                return Task.FromResult(queue.Peek());
+            }
         }
     }
 }
