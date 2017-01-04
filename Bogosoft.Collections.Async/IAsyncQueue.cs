@@ -24,7 +24,7 @@ namespace Bogosoft.Collections.Async
         /// </summary>
         /// <param name="token">A <see cref="CancellationToken"/> object.</param>
         /// <returns>
-        /// An object of the queue type.
+        /// An object of the queued item type.
         /// </returns>
         /// <exception cref="InvalidOperationException">
         /// Implementations SHOULD throw an <see cref="InvalidOperationException"/> in the event
@@ -43,11 +43,11 @@ namespace Bogosoft.Collections.Async
         Task<bool> EnqueueAsync(T item, CancellationToken token);
 
         /// <summary>
-        /// Return the next item in the current queue without removing it from the queue.
+        /// Return the next item in the current queue without removing it.
         /// </summary>
         /// <param name="token">A <see cref="CancellationToken"/> object.</param>
         /// <returns>
-        /// An object of the queue type.
+        /// An object of the queued item type.
         /// </returns>
         /// <exception cref="InvalidOperationException">
         /// Implementations SHOULD throw an <see cref="InvalidOperationException"/> in the event
