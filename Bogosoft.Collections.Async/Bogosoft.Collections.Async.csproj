@@ -44,7 +44,6 @@
   <ItemGroup>
     <Compile Include="Cursor.cs" />
     <Compile Include="EnumerableExtensions.cs" />
-    <Compile Include="EnumerableTraverser.cs" />
     <Compile Include="ICursor.cs" />
     <Compile Include="ITraversable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
