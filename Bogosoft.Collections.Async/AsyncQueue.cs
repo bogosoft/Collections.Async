@@ -125,6 +125,23 @@ namespace Bogosoft.Collections.Async
         }
 
         /// <summary>
+        /// Count the number of currently queue items.
+        /// </summary>
+        /// <param name="token">A <see cref="CancellationToken"/> object.</param>
+        /// <returns>
+        /// A value corresponding to the number of currently queued items.
+        /// </returns>
+        public Task<ulong> CountAsync(CancellationToken token)
+        {
+            token.ThrowIfCancellationRequested();
+
+            lock (queue)
+            {
+                return Task.FromResult((ulong)queue.Count);
+            }
+        }
+
+        /// <summary>
         /// Remove and return the next item in the current queue.
         /// </summary>
         /// <param name="token">A <see cref="CancellationToken"/> object.</param>
