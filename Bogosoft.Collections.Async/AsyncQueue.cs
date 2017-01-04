@@ -131,6 +131,9 @@ namespace Bogosoft.Collections.Async
         /// <returns>
         /// A value corresponding to the number of currently queued items.
         /// </returns>
+        /// <exception cref="OperationCanceledException">
+        /// Thrown if a <see cref="CancellationTokenSource"/> has requested a cancellation.
+        /// </exception>
         public Task<ulong> CountAsync(CancellationToken token)
         {
             token.ThrowIfCancellationRequested();
@@ -177,9 +180,6 @@ namespace Bogosoft.Collections.Async
         /// <returns>
         /// A value indicating whether or not the enqueue operation was successful.
         /// </returns>
-        /// <exception cref="OperationCanceledException">
-        /// Thrown if a <see cref="CancellationTokenSource"/> has requested a cancellation.
-        /// </exception>
         public Task<bool> EnqueueAsync(T item, CancellationToken token)
         {
             if (token.IsCancellationRequested)
