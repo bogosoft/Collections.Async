@@ -111,6 +111,17 @@ namespace Bogosoft.Collections.Async
         }
 
         /// <summary>
+        /// Create and return a cursor.
+        /// </summary>
+        /// <typeparam name="T">The type of the items capable of being traversed.</typeparam>
+        /// <param name="sequence">The current <see cref="ITraversable{T}"/> implementation.</param>
+        /// <returns>A readable, forward-only cursor.</returns>
+        public static async Task<ICursor<T>> GetCursorAsync<T>(this ITraversable<T> sequence)
+        {
+            return await sequence.GetCursorAsync(CancellationToken.None);
+        }
+
+        /// <summary>
         /// Convert the current traversable type to an array and return it. Calling this method is equivalent to
         /// calling <see cref="Traversable.ToArrayAsync{T}(ITraversable{T}, CancellationToken)"/> with a value
         /// of <see cref="CancellationToken.None"/>.
@@ -327,6 +338,18 @@ namespace Bogosoft.Collections.Async
         public static ITraversable<T> Empty
         {
             get { return new EmptySequence(); }
+        }
+
+        /// <summary>
+        /// Create a traversable sequence from one or more given items.
+        /// </summary>
+        /// <param name="items">Items to include in a traversable sequence.</param>
+        /// <returns>
+        /// A traversable sequence consisting of the given items.
+        /// </returns>
+        public static ITraversable<T> From(params T[] items)
+        {
+            return new EnumerableSequence(items);
         }
     }
 }

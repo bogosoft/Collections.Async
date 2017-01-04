@@ -10,10 +10,10 @@ namespace Bogosoft.Collections.Async
     public interface ITraversable<T>
     {
         /// <summary>
-        /// Get a traversable data structure.
+        /// Create and return a cursor.
         /// </summary>
         /// <param name="token">A <see cref="CancellationToken"/> object.</param>
-        /// <returns>An instance of <see cref="ICursor{T}"/>.</returns>
+        /// <returns>A readable, forward-only cursor.</returns>
         Task<ICursor<T>> GetCursorAsync(CancellationToken token);
     }
 }
