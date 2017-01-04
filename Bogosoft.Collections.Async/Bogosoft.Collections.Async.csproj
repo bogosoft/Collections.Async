@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AsyncQueue.cs" />
     <Compile Include="Cursor.cs" />
     <Compile Include="EnumerableExtensions.cs" />
     <Compile Include="IAsyncQueue.cs" />
