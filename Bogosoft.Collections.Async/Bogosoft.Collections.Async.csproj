@@ -43,9 +43,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AsyncQueue.cs" />
+    <Compile Include="CountExtensions.cs" />
     <Compile Include="Cursor.cs" />
     <Compile Include="EnumerableExtensions.cs" />
     <Compile Include="IAsyncQueue.cs" />
+    <Compile Include="ICount.cs" />
     <Compile Include="ICursor.cs" />
     <Compile Include="ITraversable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
