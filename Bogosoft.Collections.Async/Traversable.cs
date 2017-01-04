@@ -11,23 +11,6 @@ namespace Bogosoft.Collections.Async
     public static class Traversable
     {
         /// <summary>
-        /// Get a traversable structure of the specified item type with no traversable items.
-        /// </summary>
-        /// <typeparam name="T">The type of the items capable of being traversed.</typeparam>
-        public struct EmptyTraversable<T> : ITraversable<T>
-        {
-            /// <summary>
-            /// Get a traversable data structure.
-            /// </summary>
-            /// <param name="token">A <see cref="CancellationToken"/> object.</param>
-            /// <returns>A new <see cref="Traversable.EmptyTraversable{T}"/> object.</returns>
-            public Task<ICursor<T>> GetCursorAsync(CancellationToken token)
-            {
-                return Task.FromResult<ICursor<T>>(new EmptyCursor<T>());
-            }
-        }
-
-        /// <summary>
         /// Copy items from the current traversable structure sequentially to a target indexable collection. Calling this
         /// method is equivalent to calling <see cref="CopyToAsync{T}(ITraversable{T}, IList{T}, CancellationToken)"/>
         /// with a value of <see cref="CancellationToken.None"/>.
@@ -223,12 +206,45 @@ namespace Bogosoft.Collections.Async
     /// </summary>
     public static class Traversable<T>
     {
+        internal struct EmptySequence : ITraversable<T>
+        {
+            internal struct Cursor : ICursor<T>
+            {
+                public bool IsDisposed { get; private set; }
+
+                public bool IsExpended
+                {
+                    get { return true; }
+                }
+
+                public void Dispose()
+                {
+                    IsDisposed = true;
+                }
+
+                public Task<T> GetCurrentAsync(CancellationToken token)
+                {
+                    throw new NotSupportedException();
+                }
+
+                public Task<bool> MoveNextAsync(CancellationToken token)
+                {
+                    return Task.FromResult(false);
+                }
+            }
+
+            public Task<ICursor<T>> GetCursorAsync(CancellationToken token)
+            {
+                return Task.FromResult<ICursor<T>>(new Cursor());
+            }
+        }
+
         /// <summary>
-        /// Get a traversablen data structure with no traversable items.
+        /// Get an empty traversable sequence.
         /// </summary>
         public static ITraversable<T> Empty
         {
-            get { return new Traversable.EmptyTraversable<T>(); }
+            get { return new EmptySequence(); }
         }
     }
 }

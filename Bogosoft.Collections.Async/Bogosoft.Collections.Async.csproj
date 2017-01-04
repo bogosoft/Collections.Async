@@ -43,7 +43,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cursor.cs" />
-    <Compile Include="EmptyCursor.cs" />
     <Compile Include="EnumerableExtensions.cs" />
     <Compile Include="EnumerableTraverser.cs" />
     <Compile Include="ICursor.cs" />

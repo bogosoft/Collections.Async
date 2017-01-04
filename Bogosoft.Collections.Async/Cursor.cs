@@ -42,7 +42,7 @@ namespace Bogosoft.Collections.Async
         /// </summary>
         public static ICursor<T> Empty
         {
-            get { return new EmptyCursor<T>(); }
+            get { return new Traversable<T>.EmptySequence.Cursor(); }
         }
     }
 }

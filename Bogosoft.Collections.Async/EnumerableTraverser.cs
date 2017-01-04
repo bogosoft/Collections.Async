@@ -129,7 +129,7 @@ namespace Bogosoft.Collections.Async
 
             if (token.IsCancellationRequested)
             {
-                cursor = new EmptyCursor<T>();
+                cursor = Cursor<T>.Empty;
             }
             else
             {
