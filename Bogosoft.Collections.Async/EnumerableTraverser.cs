@@ -14,10 +14,9 @@ namespace Bogosoft.Collections.Async
         /// <summary>
         /// An adapter for an <see cref="IEnumerator{T}"/>.
         /// </summary>
-        /// <typeparam name="U">The type of the items in the cursor.</typeparam>
-        public struct EnumeratorCursor<U> : ICursor<U>
+        public struct Cursor : ICursor<T>
         {
-            private IEnumerator<U> enumerator;
+            private IEnumerator<T> enumerator;
 
             private bool active;
 
@@ -32,12 +31,12 @@ namespace Bogosoft.Collections.Async
             public bool IsExpended { get; private set; }
 
             /// <summary>
-            /// Create a new instance of <see cref="EnumeratorCursor{TItem}"/> with a given <see cref="IEnumerator{TItem}"/>.
+            /// Create a new instance of <see cref="Cursor"/> with a given <see cref="IEnumerator{T}"/>.
             /// </summary>
             /// <param name="enumerator">
             /// An instance of <see cref="IEnumerator{TItem}"/> to be adapted.
             /// </param>
-            public EnumeratorCursor(IEnumerator<U> enumerator)
+            public Cursor(IEnumerator<T> enumerator)
             {
                 active = false;
 
@@ -48,7 +47,7 @@ namespace Bogosoft.Collections.Async
             }
 
             /// <summary>
-            /// Dispose of the underlying <see cref="IEnumerator{TItem}"/> and mark the current cursor as disposed.
+            /// Dispose of the underlying <see cref="IEnumerator{T}"/> and mark the current cursor as disposed.
             /// </summary>
             public void Dispose()
             {
@@ -73,7 +72,7 @@ namespace Bogosoft.Collections.Async
             /// <exception cref="OperationCanceledException">
             /// Thrown in the event that a <see cref="CancellationTokenSource"/> has requested a cancellation.
             /// </exception>
-            public Task<U> GetCurrentAsync(CancellationToken token)
+            public Task<T> GetCurrentAsync(CancellationToken token)
             {
                 token.ThrowIfCancellationRequested();
 
@@ -134,7 +133,7 @@ namespace Bogosoft.Collections.Async
             }
             else
             {
-                cursor = new EnumeratorCursor<T>(enumerable.GetEnumerator());
+                cursor = new Cursor(enumerable.GetEnumerator());
             }
 
             return Task.FromResult(cursor);
