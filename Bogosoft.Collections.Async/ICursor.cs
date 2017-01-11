@@ -24,7 +24,10 @@ namespace Bogosoft.Collections.Async
         /// Get the item pointed at by the present position of the current cursor.
         /// </summary>
         /// <param name="token">A <see cref="CancellationToken"/> object.</param>
-        /// <returns>The item at the present position of the current cursor.</returns>
+        /// <returns>
+        /// The item at the present position of the current cursor. Note that the result of calling this method before calling
+        /// <see cref="MoveNextAsync(CancellationToken)"/> for the first time is undefined.
+        /// </returns>
         /// <exception cref="InvalidOperationException">
         /// Implementations SHOULD throw an <see cref="InvalidOperationException"/> in the case that
         /// calling <see cref="MoveNextAsync(CancellationToken)"/> before this method would result in
