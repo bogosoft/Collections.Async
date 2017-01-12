@@ -45,6 +45,7 @@
     <Compile Include="AsyncQueue.cs" />
     <Compile Include="CountExtensions.cs" />
     <Compile Include="Cursor.cs" />
+    <Compile Include="EmptySequenceException.cs" />
     <Compile Include="EnumerableExtensions.cs" />
     <Compile Include="IAsyncQueue.cs" />
     <Compile Include="ICount.cs" />
@@ -53,6 +54,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueueExtensions.cs" />
     <Compile Include="Traversable.cs" />
+    <Compile Include="TraversalException.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Bogosoft.Collections.Async.nuspec" />

@@ -25,8 +25,7 @@ namespace Bogosoft.Collections.Async
         /// </summary>
         /// <param name="token">A <see cref="CancellationToken"/> object.</param>
         /// <returns>
-        /// The item at the present position of the current cursor. Note that the result of calling this method before calling
-        /// <see cref="MoveNextAsync(CancellationToken)"/> for the first time is undefined.
+        /// The item at the present position of the current cursor.
         /// </returns>
         /// <exception cref="InvalidOperationException">
         /// Implementations SHOULD throw an <see cref="InvalidOperationException"/> in the case that
