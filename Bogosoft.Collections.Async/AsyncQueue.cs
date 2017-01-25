@@ -17,7 +17,7 @@ namespace Bogosoft.Collections.Async
 
             private Queue<T>.Enumerator enumerator;
 
-            private object @lock;
+            private ReaderWriterLockSlim @lock;
 
             public bool IsDisposed => disposed;
 
@@ -33,24 +33,39 @@ namespace Bogosoft.Collections.Async
 
                 enumerator = queue.GetEnumerator();
 
-                @lock = new object();
+                @lock = new ReaderWriterLockSlim();
             }
 
             public void Dispose()
             {
-                if (!disposed)
+                @lock.EnterUpgradeableReadLock();
+
+                try
                 {
-                    lock (@lock)
+                    if (!disposed)
                     {
-                        enumerator.Dispose();
+                        @lock.EnterWriteLock();
 
-                        disposed = true;
-
-                        if(CursorDisposed != null)
+                        try
                         {
-                            CursorDisposed.Invoke();
+                            enumerator.Dispose();
+
+                            disposed = true;
+
+                            if (CursorDisposed != null)
+                            {
+                                CursorDisposed.Invoke();
+                            }
+                        }
+                        finally
+                        {
+                            @lock.ExitWriteLock();
                         }
                     }
+                }
+                finally
+                {
+                    @lock.ExitUpgradeableReadLock();
                 }
             }
 
@@ -58,7 +73,9 @@ namespace Bogosoft.Collections.Async
             {
                 token.ThrowIfCancellationRequested();
 
-                lock (@lock)
+                @lock.EnterReadLock();
+
+                try
                 {
                     if (!active)
                     {
@@ -66,6 +83,10 @@ namespace Bogosoft.Collections.Async
                     }
 
                     return Task.FromResult(enumerator.Current);
+                }
+                finally
+                {
+                    @lock.ExitReadLock();
                 }
             }
 
@@ -76,9 +97,15 @@ namespace Bogosoft.Collections.Async
                     return Task.FromResult(false);
                 }
 
-                lock (@lock)
+                @lock.EnterReadLock();
+
+                try
                 {
                     return Task.FromResult(active = enumerator.MoveNext());
+                }
+                finally
+                {
+                    @lock.ExitReadLock();
                 }
             }
         }
