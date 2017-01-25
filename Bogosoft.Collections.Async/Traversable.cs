@@ -217,20 +217,29 @@ namespace Bogosoft.Collections.Async
     /// </summary>
     public static class Traversable<T>
     {
-        internal struct EmptySequence : ITraversable<T>
+        internal class EmptySequence : ITraversable<T>
         {
             internal struct Cursor : ICursor<T>
             {
-                public bool IsDisposed { get; private set; }
+                bool disposed;
 
-                public bool IsExpended
-                {
-                    get { return true; }
-                }
+                public bool IsDisposed => disposed;
+
+                public bool IsExpended => true;
+
+                public event EventHandler CursorDisposed;
 
                 public void Dispose()
                 {
-                    IsDisposed = true;
+                    if (!disposed)
+                    {
+                        disposed = true;
+
+                        if(CursorDisposed != null)
+                        {
+                            CursorDisposed.Invoke();
+                        }
+                    }
                 }
 
                 public Task<T> GetCurrentAsync(CancellationToken token)
@@ -250,35 +259,41 @@ namespace Bogosoft.Collections.Async
             }
         }
 
-        internal struct EnumerableSequence : ITraversable<T>
+        internal class EnumerableSequence : ITraversable<T>
         {
             internal struct Cursor : ICursor<T>
             {
                 private IEnumerator<T> enumerator;
 
-                private bool active;
+                private bool active, disposed;
 
-                public bool IsDisposed { get; private set; }
+                public bool IsDisposed => disposed;
 
-                public bool IsExpended { get; private set; }
+                public bool IsExpended => !active;
 
-                public Cursor(IEnumerator<T> enumerator)
+                public event EventHandler CursorDisposed;
+
+                public Cursor(IEnumerable<T> enumerable)
                 {
-                    active = false;
+                    active = disposed = false;
 
-                    this.enumerator = enumerator;
+                    CursorDisposed = null;
 
-                    IsDisposed = false;
-                    IsExpended = false;
+                    enumerator = enumerable.GetEnumerator();
                 }
 
                 public void Dispose()
                 {
-                    if (!IsDisposed)
+                    if (!disposed)
                     {
                         enumerator.Dispose();
 
-                        IsDisposed = true;
+                        disposed = true;
+
+                        if(CursorDisposed != null)
+                        {
+                            CursorDisposed.Invoke();
+                        }
                     }
                 }
 
@@ -296,15 +311,14 @@ namespace Bogosoft.Collections.Async
 
                 public Task<bool> MoveNextAsync(CancellationToken token)
                 {
-                    if (!token.IsCancellationRequested && !IsExpended)
+                    if (token.IsCancellationRequested)
                     {
-                        if (false == (active = enumerator.MoveNext()))
-                        {
-                            IsExpended = true;
-                        }
+                        return Task.FromResult(false);
                     }
-
-                    return Task.FromResult(active);
+                    else
+                    {
+                        return Task.FromResult(active = enumerator.MoveNext());
+                    }
                 }
             }
 
@@ -325,7 +339,7 @@ namespace Bogosoft.Collections.Async
                 }
                 else
                 {
-                    cursor = new Cursor(enumerable.GetEnumerator());
+                    cursor = new Cursor(enumerable);
                 }
 
                 return Task.FromResult(cursor);

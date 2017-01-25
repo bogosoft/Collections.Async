@@ -11,43 +11,60 @@ namespace Bogosoft.Collections.Async
     /// <typeparam name="T">The type of the queued items.</typeparam>
     public sealed class AsyncQueue<T> : IAsyncQueue<T>
     {
-        internal struct Cursor : ICursor<T>
+        struct Cursor : ICursor<T>
         {
+            bool active, disposed;
+
             private Queue<T>.Enumerator enumerator;
 
             private object @lock;
 
-            public bool IsDisposed { get; private set; }
+            public bool IsDisposed => disposed;
 
-            public bool IsExpended { get; private set; }
+            public bool IsExpended => !active;
 
-            internal Cursor(Queue<T>.Enumerator enumerator)
+            public event EventHandler CursorDisposed;
+
+            internal Cursor(Queue<T> queue)
             {
-                this.enumerator = enumerator;
+                active = disposed = false;
+
+                CursorDisposed = null;
+
+                enumerator = queue.GetEnumerator();
 
                 @lock = new object();
-
-                IsDisposed = false;
-                IsExpended = false;
             }
 
             public void Dispose()
             {
-                if (!IsDisposed)
+                if (!disposed)
                 {
                     lock (@lock)
                     {
                         enumerator.Dispose();
 
-                        IsDisposed = true;
+                        disposed = true;
+
+                        if(CursorDisposed != null)
+                        {
+                            CursorDisposed.Invoke();
+                        }
                     }
                 }
             }
 
             public Task<T> GetCurrentAsync(CancellationToken token)
             {
+                token.ThrowIfCancellationRequested();
+
                 lock (@lock)
                 {
+                    if (!active)
+                    {
+                        throw new InvalidOperationException("This cursor has not been initialized.");
+                    }
+
                     return Task.FromResult(enumerator.Current);
                 }
             }
@@ -61,21 +78,7 @@ namespace Bogosoft.Collections.Async
 
                 lock (@lock)
                 {
-                    if (IsExpended)
-                    {
-                        return Task.FromResult(false);
-                    }
-
-                    if (enumerator.MoveNext())
-                    {
-                        return Task.FromResult(true);
-                    }
-                    else
-                    {
-                        IsExpended = true;
-
-                        return Task.FromResult(false);
-                    }
+                    return Task.FromResult(active = enumerator.MoveNext());
                 }
             }
         }
@@ -210,7 +213,7 @@ namespace Bogosoft.Collections.Async
             }
             else
             {
-                cursor = new Cursor(queue.GetEnumerator());
+                cursor = new Cursor(queue);
             }
 
             return Task.FromResult(cursor);
