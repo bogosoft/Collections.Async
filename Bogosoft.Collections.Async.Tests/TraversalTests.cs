@@ -138,7 +138,7 @@ namespace Bogosoft.Collections.Async.Tests
         }
 
         [TestCase]
-        public async Task CanCreateSequenceFromVariadicArguments()
+        public async Task CanCreateSequenceFromVariadicArgumentsAsync()
         {
             var sequence = Traversable<int>.From(0, 1, 2, 3, 4);
 
@@ -171,6 +171,24 @@ namespace Bogosoft.Collections.Async.Tests
             exception.ShouldNotBeNull();
 
             exception.ShouldBeType<NotSupportedException>();
+        }
+
+        [TestCase]
+        public void EventsCanBePublishedAndConsumed()
+        {
+            bool disposed = false;
+            ICursor<object> cursor;
+
+            // Empty cursor
+            cursor = Cursor<object>.Empty;
+
+            cursor.CursorDisposed += (sender, args) => disposed = true;
+
+            disposed.ShouldBeFalse();
+
+            cursor.Dispose();
+
+            disposed.ShouldBeTrue();
         }
     }
 }

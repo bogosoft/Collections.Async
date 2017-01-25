@@ -21,6 +21,12 @@ namespace Bogosoft.Collections.Async
         bool IsExpended { get; }
 
         /// <summary>
+        /// An event that should be raised just before disposing of any unmanaged
+        /// resources used by the current cursor.
+        /// </summary>
+        event EventHandler CursorDisposed;
+
+        /// <summary>
         /// Get the item pointed at by the present position of the current cursor.
         /// </summary>
         /// <param name="token">A <see cref="CancellationToken"/> object.</param>
