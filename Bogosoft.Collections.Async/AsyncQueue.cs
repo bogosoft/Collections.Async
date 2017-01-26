@@ -23,13 +23,9 @@ namespace Bogosoft.Collections.Async
 
             public bool IsExpended => !active;
 
-            public event EventHandler CursorDisposed;
-
             internal Cursor(Queue<T> queue)
             {
                 active = disposed = false;
-
-                CursorDisposed = null;
 
                 enumerator = queue.GetEnumerator();
 
@@ -51,11 +47,6 @@ namespace Bogosoft.Collections.Async
                             enumerator.Dispose();
 
                             disposed = true;
-
-                            if (CursorDisposed != null)
-                            {
-                                CursorDisposed.Invoke();
-                            }
                         }
                         finally
                         {

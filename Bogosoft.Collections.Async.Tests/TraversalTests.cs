@@ -172,23 +172,5 @@ namespace Bogosoft.Collections.Async.Tests
 
             exception.ShouldBeType<NotSupportedException>();
         }
-
-        [TestCase]
-        public void EventsCanBePublishedAndConsumed()
-        {
-            bool disposed = false;
-            ICursor<object> cursor;
-
-            // Empty cursor
-            cursor = Cursor<object>.Empty;
-
-            cursor.CursorDisposed += (sender, args) => disposed = true;
-
-            disposed.ShouldBeFalse();
-
-            cursor.Dispose();
-
-            disposed.ShouldBeTrue();
-        }
     }
 }

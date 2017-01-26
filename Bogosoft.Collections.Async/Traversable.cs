@@ -227,18 +227,11 @@ namespace Bogosoft.Collections.Async
 
                 public bool IsExpended => true;
 
-                public event EventHandler CursorDisposed;
-
                 public void Dispose()
                 {
                     if (!disposed)
                     {
                         disposed = true;
-
-                        if(CursorDisposed != null)
-                        {
-                            CursorDisposed.Invoke();
-                        }
                     }
                 }
 
@@ -271,13 +264,9 @@ namespace Bogosoft.Collections.Async
 
                 public bool IsExpended => !active;
 
-                public event EventHandler CursorDisposed;
-
                 public Cursor(IEnumerable<T> enumerable)
                 {
                     active = disposed = false;
-
-                    CursorDisposed = null;
 
                     enumerator = enumerable.GetEnumerator();
                 }
@@ -289,11 +278,6 @@ namespace Bogosoft.Collections.Async
                         enumerator.Dispose();
 
                         disposed = true;
-
-                        if(CursorDisposed != null)
-                        {
-                            CursorDisposed.Invoke();
-                        }
                     }
                 }
 
