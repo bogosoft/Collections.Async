@@ -101,6 +101,7 @@ namespace Bogosoft.Collections.Async
             }
         }
 
+        private ReaderWriterLockSlim @lock = new ReaderWriterLockSlim();
         private Queue<T> queue;
 
         /// <summary>
@@ -137,12 +138,30 @@ namespace Bogosoft.Collections.Async
                 return Task.FromResult(false);
             }
 
-            lock (queue)
-            {
-                queue.Clear();
+            @lock.EnterUpgradeableReadLock();
 
-                return Task.FromResult(true);
+            try
+            {
+                if(queue.Count > 0)
+                {
+                    @lock.EnterWriteLock();
+
+                    try
+                    {
+                        queue.Clear();
+                    }
+                    finally
+                    {
+                        @lock.ExitWriteLock();
+                    }
+                }
             }
+            finally
+            {
+                @lock.ExitUpgradeableReadLock();
+            }
+
+            return Task.FromResult(true);
         }
 
         /// <summary>
@@ -159,9 +178,15 @@ namespace Bogosoft.Collections.Async
         {
             token.ThrowIfCancellationRequested();
 
-            lock (queue)
+            @lock.EnterReadLock();
+
+            try
             {
                 return Task.FromResult((ulong)queue.Count);
+            }
+            finally
+            {
+                @lock.ExitReadLock();
             }
         }
 
@@ -182,14 +207,29 @@ namespace Bogosoft.Collections.Async
         {
             token.ThrowIfCancellationRequested();
 
-            lock (queue)
+            @lock.EnterUpgradeableReadLock();
+
+            try
             {
-                if (queue.Count == 0)
+                if(queue.Count == 0)
                 {
                     throw new InvalidOperationException("Queue is empty.");
                 }
 
-                return Task.FromResult(queue.Dequeue());
+                @lock.EnterWriteLock();
+
+                try
+                {
+                    return Task.FromResult(queue.Dequeue());
+                }
+                finally
+                {
+                    @lock.ExitWriteLock();
+                }
+            }
+            finally
+            {
+                @lock.ExitUpgradeableReadLock();
             }
         }
 
@@ -208,11 +248,17 @@ namespace Bogosoft.Collections.Async
                 return Task.FromResult(false);
             }
 
-            lock (queue)
+            @lock.EnterWriteLock();
+
+            try
             {
                 queue.Enqueue(item);
 
                 return Task.FromResult(true);
+            }
+            finally
+            {
+                @lock.ExitWriteLock();
             }
         }
 
@@ -254,7 +300,9 @@ namespace Bogosoft.Collections.Async
         {
             token.ThrowIfCancellationRequested();
 
-            lock (queue)
+            @lock.EnterReadLock();
+
+            try
             {
                 if (queue.Count == 0)
                 {
@@ -262,6 +310,10 @@ namespace Bogosoft.Collections.Async
                 }
 
                 return Task.FromResult(queue.Peek());
+            }
+            finally
+            {
+                @lock.ExitReadLock();
             }
         }
     }
