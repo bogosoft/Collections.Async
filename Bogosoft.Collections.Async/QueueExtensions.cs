@@ -39,7 +39,9 @@ namespace Bogosoft.Collections.Async
         }
 
         /// <summary>
-        /// Insert an item into the current queue.
+        /// Insert an item into the current queue. Calling this method is equivalent to calling
+        /// <see cref="IAsyncQueue{T}.EnqueueAsync(T, CancellationToken)"/> with a value of
+        /// <see cref="CancellationToken.None"/>.
         /// </summary>
         /// <typeparam name="T">The type of the queued items.</typeparam>
         /// <param name="queue">The current <see cref="IAsyncQueue{T}"/> implementation.</param>
@@ -53,7 +55,9 @@ namespace Bogosoft.Collections.Async
         }
 
         /// <summary>
-        /// Return the next item in the current queue without removing it.
+        /// Return the next item in the current queue without removing it. Calling this method is equivalent
+        /// to calling <see cref="IAsyncQueue{T}.PeekAsync(CancellationToken)"/> with a value of
+        /// <see cref="CancellationToken.None"/>.
         /// </summary>
         /// <typeparam name="T">The type of the queued items.</typeparam>
         /// <param name="queue">The current <see cref="IAsyncQueue{T}"/> implementation.</param>
