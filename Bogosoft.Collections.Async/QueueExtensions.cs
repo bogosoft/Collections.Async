@@ -18,9 +18,9 @@ namespace Bogosoft.Collections.Async
         /// <returns>
         /// A value indicating whether or not the clear operation succeeded.
         /// </returns>
-        public static async Task<bool> ClearAsync<T>(this IAsyncQueue<T> queue)
+        public static Task<bool> ClearAsync<T>(this IAsyncQueue<T> queue)
         {
-            return await queue.ClearAsync(CancellationToken.None).ConfigureAwait(false);
+            return queue.ClearAsync(CancellationToken.None);
         }
 
         /// <summary>
@@ -33,9 +33,9 @@ namespace Bogosoft.Collections.Async
         /// <returns>
         /// An object of the queued item type.
         /// </returns>
-        public static async Task<T> DequeueAsync<T>(this IAsyncQueue<T> queue)
+        public static Task<T> DequeueAsync<T>(this IAsyncQueue<T> queue)
         {
-            return await queue.DequeueAsync(CancellationToken.None).ConfigureAwait(false);
+            return queue.DequeueAsync(CancellationToken.None);
         }
 
         /// <summary>
@@ -49,9 +49,9 @@ namespace Bogosoft.Collections.Async
         /// <returns>
         /// A value indicating whether or not the enqueue operation was successful.
         /// </returns>
-        public static async Task<bool> EnqueueAsync<T>(this IAsyncQueue<T> queue, T item)
+        public static Task<bool> EnqueueAsync<T>(this IAsyncQueue<T> queue, T item)
         {
-            return await queue.EnqueueAsync(item, CancellationToken.None).ConfigureAwait(false);
+            return queue.EnqueueAsync(item, CancellationToken.None);
         }
 
         /// <summary>
@@ -64,9 +64,9 @@ namespace Bogosoft.Collections.Async
         /// <returns>
         /// An object of the queued item type.
         /// </returns>
-        public static async Task<T> PeekAsync<T>(this IAsyncQueue<T> queue)
+        public static Task<T> PeekAsync<T>(this IAsyncQueue<T> queue)
         {
-            return await queue.PeekAsync(CancellationToken.None).ConfigureAwait(false);
+            return queue.PeekAsync(CancellationToken.None);
         }
     }
 }

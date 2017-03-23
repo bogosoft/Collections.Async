@@ -21,9 +21,9 @@ namespace Bogosoft.Collections.Async
         /// <returns>
         /// A value corresponding to the number of items copied.
         /// </returns>
-        public static async Task<int> CopyToAsync<T>(this ITraversable<T> source, IList<T> target)
+        public static Task<int> CopyToAsync<T>(this ITraversable<T> source, IList<T> target)
         {
-            return await source.CopyToAsync(target, 0, target.Count, CancellationToken.None).ConfigureAwait(false);
+            return source.CopyToAsync(target, 0, target.Count, CancellationToken.None);
         }
 
         /// <summary>
@@ -36,13 +36,13 @@ namespace Bogosoft.Collections.Async
         /// <returns>
         /// A value corresponding to the number of items copied.
         /// </returns>
-        public static async Task<int> CopyToAsync<T>(
+        public static Task<int> CopyToAsync<T>(
             this ITraversable<T> source,
             IList<T> target,
             CancellationToken token
             )
         {
-            return await source.CopyToAsync(target, 0, target.Count, token).ConfigureAwait(false);
+            return source.CopyToAsync(target, 0, target.Count, token);
         }
 
         /// <summary>
@@ -63,14 +63,14 @@ namespace Bogosoft.Collections.Async
         /// <returns>
         /// A value corresponding to the number of items copied.
         /// </returns>
-        public static async Task<int> CopyToAsync<T>(
+        public static Task<int> CopyToAsync<T>(
             this ITraversable<T> source,
             IList<T> target,
             int start,
             int count
             )
         {
-            return await source.CopyToAsync(target, start, count, CancellationToken.None).ConfigureAwait(false);
+            return source.CopyToAsync(target, start, count, CancellationToken.None);
         }
 
         /// <summary>
@@ -116,9 +116,9 @@ namespace Bogosoft.Collections.Async
         /// <typeparam name="T">The type of the items capable of being traversed.</typeparam>
         /// <param name="sequence">The current <see cref="ITraversable{T}"/> implementation.</param>
         /// <returns>A readable, forward-only cursor.</returns>
-        public static async Task<ICursor<T>> GetCursorAsync<T>(this ITraversable<T> sequence)
+        public static Task<ICursor<T>> GetCursorAsync<T>(this ITraversable<T> sequence)
         {
-            return await sequence.GetCursorAsync(CancellationToken.None);
+            return sequence.GetCursorAsync(CancellationToken.None);
         }
 
         /// <summary>
@@ -129,9 +129,9 @@ namespace Bogosoft.Collections.Async
         /// <typeparam name="T">The type of the items to be included in the array.</typeparam>
         /// <param name="source">The current <see cref="ITraversable{T}"/> implementation.</param>
         /// <returns>An array of items of the traversed type.</returns>
-        public static async Task<T[]> ToArrayAsync<T>(this ITraversable<T> source)
+        public static Task<T[]> ToArrayAsync<T>(this ITraversable<T> source)
         {
-            return await source.ToArrayAsync(CancellationToken.None).ConfigureAwait(false);
+            return source.ToArrayAsync(CancellationToken.None);
         }
 
         /// <summary>
@@ -179,9 +179,9 @@ namespace Bogosoft.Collections.Async
         /// <typeparam name="T">The type of the items to be included in the array.</typeparam>
         /// <param name="source">The current <see cref="ITraversable{T}"/> implementation.</param>
         /// <returns>A list of items of the traversed type.</returns>
-        public static async Task<List<T>> ToListAsync<T>(this ITraversable<T> source)
+        public static Task<List<T>> ToListAsync<T>(this ITraversable<T> source)
         {
-            return await source.ToListAsync(CancellationToken.None);
+            return source.ToListAsync(CancellationToken.None);
         }
 
         /// <summary>
@@ -200,11 +200,11 @@ namespace Bogosoft.Collections.Async
 
             var target = new List<T>();
 
-            using (var cursor = await source.GetCursorAsync(token))
+            using (var cursor = await source.GetCursorAsync(token).ConfigureAwait(false))
             {
-                while(await cursor.MoveNextAsync(token))
+                while(await cursor.MoveNextAsync(token).ConfigureAwait(false))
                 {
-                    target.Add(await cursor.GetCurrentAsync(token));
+                    target.Add(await cursor.GetCurrentAsync(token).ConfigureAwait(false));
                 }
             }
 

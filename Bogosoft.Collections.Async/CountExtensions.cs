@@ -18,9 +18,9 @@ namespace Bogosoft.Collections.Async
         /// <returns>
         /// A value corresponding to the number of objects the specified tpye.
         /// </returns>
-        public static async Task<ulong> CountAsync<T>(this ICount<T> target)
+        public static Task<ulong> CountAsync<T>(this ICount<T> target)
         {
-            return await target.CountAsync(CancellationToken.None);
+            return target.CountAsync(CancellationToken.None);
         }
     }
 }
