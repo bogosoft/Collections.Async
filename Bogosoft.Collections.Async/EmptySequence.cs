@@ -7,8 +7,6 @@ namespace Bogosoft.Collections.Async
     {
         public Task<ICursor<T>> GetCursorAsync(CancellationToken token)
         {
-            token.ThrowIfCancellationRequested();
-
             return Task.FromResult<ICursor<T>>(new EmptyCursor<T>());
         }
     }
