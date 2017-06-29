@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace Bogosoft.Collections.Async
+﻿namespace Bogosoft.Collections.Async
 {
     /// <summary>
     /// Provides a set of static methods for working with <see cref="ITraversable{T}"/> types.
     /// </summary>
     public static class Traversable<T>
     {
-
         /// <summary>
         /// Get an empty traversable sequence.
         /// </summary>
