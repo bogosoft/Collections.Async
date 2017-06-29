@@ -123,7 +123,7 @@ namespace Bogosoft.Collections.Async
 
         /// <summary>
         /// Convert the current traversable type to an array and return it. Calling this method is equivalent to
-        /// calling <see cref="Traversable.ToArrayAsync{T}(ITraversable{T}, CancellationToken)"/> with a value
+        /// calling <see cref="ToArrayAsync{T}(ITraversable{T}, CancellationToken)"/> with a value
         /// of <see cref="CancellationToken.None"/>.
         /// </summary>
         /// <typeparam name="T">The type of the items to be included in the array.</typeparam>
