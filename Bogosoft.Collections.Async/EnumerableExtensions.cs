@@ -15,7 +15,7 @@ namespace Bogosoft.Collections.Async
         /// <returns>A traversable data structure.</returns>
         public static ITraversable<T> ToTraversable<T>(this IEnumerable<T> source)
         {
-            return new Traversable<T>.EnumerableSequence(source);
+            return new EnumerableSequence<T>(source);
         }
     }
 }
