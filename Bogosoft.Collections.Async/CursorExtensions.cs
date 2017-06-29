@@ -13,9 +13,9 @@ namespace Bogosoft.Collections.Async
         /// </summary>
         /// <param name="cursor">The current <see cref="ICursor{T}"/> implementation.</param>
         /// <returns>The item at the present position of the current cursor.</returns>
-        public static async Task<T> GetCurrentAsync<T>(this ICursor<T> cursor)
+        public static Task<T> GetCurrentAsync<T>(this ICursor<T> cursor)
         {
-            return await cursor.GetCurrentAsync(CancellationToken.None).ConfigureAwait(false);
+            return cursor.GetCurrentAsync(CancellationToken.None);
         }
 
         /// <summary>
@@ -26,9 +26,9 @@ namespace Bogosoft.Collections.Async
         /// <returns>
         /// True if the position of the cursor corresponds to a valid record; false otherwise.
         /// </returns>
-        public static async Task<bool> MoveNextAsync<T>(this ICursor<T> cursor)
+        public static Task<bool> MoveNextAsync<T>(this ICursor<T> cursor)
         {
-            return await cursor.MoveNextAsync(CancellationToken.None).ConfigureAwait(false);
+            return cursor.MoveNextAsync(CancellationToken.None);
         }
     }
 }
