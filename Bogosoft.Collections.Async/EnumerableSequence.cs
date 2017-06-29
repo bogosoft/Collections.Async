@@ -40,7 +40,7 @@ namespace Bogosoft.Collections.Async
 
                 if (!active)
                 {
-                    throw new InvalidOperationException("This cursor has not been initialized.");
+                    throw new InvalidOperationException(Message.CursorNotInitialized);
                 }
 
                 return Task.FromResult(enumerator.Current);

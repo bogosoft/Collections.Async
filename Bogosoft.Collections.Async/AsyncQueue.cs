@@ -70,7 +70,7 @@ namespace Bogosoft.Collections.Async
                 {
                     if (!active)
                     {
-                        throw new InvalidOperationException("This cursor has not been initialized.");
+                        throw new InvalidOperationException(Message.CursorNotInitialized);
                     }
 
                     return Task.FromResult(enumerator.Current);
@@ -213,7 +213,7 @@ namespace Bogosoft.Collections.Async
             {
                 if(queue.Count == 0)
                 {
-                    throw new InvalidOperationException("Queue is empty.");
+                    throw new InvalidOperationException(Message.EmptyQueue);
                 }
 
                 @lock.EnterWriteLock();
@@ -306,7 +306,7 @@ namespace Bogosoft.Collections.Async
             {
                 if (queue.Count == 0)
                 {
-                    throw new InvalidOperationException("Queue is empty.");
+                    throw new InvalidOperationException(Message.EmptyQueue);
                 }
 
                 return Task.FromResult(queue.Peek());
