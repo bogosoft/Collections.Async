@@ -12,36 +12,9 @@ namespace Bogosoft.Collections.Async
     {
         internal class EmptySequence : ITraversable<T>
         {
-            internal struct Cursor : ICursor<T>
-            {
-                bool disposed;
-
-                public bool IsDisposed => disposed;
-
-                public bool IsExpended => true;
-
-                public void Dispose()
-                {
-                    if (!disposed)
-                    {
-                        disposed = true;
-                    }
-                }
-
-                public Task<T> GetCurrentAsync(CancellationToken token)
-                {
-                    throw new NotSupportedException();
-                }
-
-                public Task<bool> MoveNextAsync(CancellationToken token)
-                {
-                    return Task.FromResult(false);
-                }
-            }
-
             public Task<ICursor<T>> GetCursorAsync(CancellationToken token)
             {
-                return Task.FromResult<ICursor<T>>(new Cursor());
+                return Task.FromResult<ICursor<T>>(new EmptyCursor<T>());
             }
         }
 

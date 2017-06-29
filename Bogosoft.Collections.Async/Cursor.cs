@@ -40,9 +40,6 @@ namespace Bogosoft.Collections.Async
         /// <summary>
         /// Get an empty cursor.
         /// </summary>
-        public static ICursor<T> Empty
-        {
-            get { return new Traversable<T>.EmptySequence.Cursor(); }
-        }
+        public static ICursor<T> Empty => new EmptyCursor<T>();
     }
 }

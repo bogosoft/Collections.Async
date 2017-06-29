@@ -45,6 +45,7 @@
     <Compile Include="AsyncQueue.cs" />
     <Compile Include="CountExtensions.cs" />
     <Compile Include="Cursor.cs" />
+    <Compile Include="EmptyCursor.cs" />
     <Compile Include="EmptySequenceException.cs" />
     <Compile Include="EnumerableExtensions.cs" />
     <Compile Include="IAsyncQueue.cs" />
