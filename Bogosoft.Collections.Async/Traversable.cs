@@ -10,14 +10,6 @@ namespace Bogosoft.Collections.Async
     /// </summary>
     public static class Traversable<T>
     {
-        internal class EmptySequence : ITraversable<T>
-        {
-            public Task<ICursor<T>> GetCursorAsync(CancellationToken token)
-            {
-                return Task.FromResult<ICursor<T>>(new EmptyCursor<T>());
-            }
-        }
-
         internal class EnumerableSequence : ITraversable<T>
         {
             internal struct Cursor : ICursor<T>
@@ -99,10 +91,7 @@ namespace Bogosoft.Collections.Async
         /// <summary>
         /// Get an empty traversable sequence.
         /// </summary>
-        public static ITraversable<T> Empty
-        {
-            get { return new EmptySequence(); }
-        }
+        public static ITraversable<T> Empty => new EmptySequence<T>();
 
         /// <summary>
         /// Create a traversable sequence from one or more given items.
