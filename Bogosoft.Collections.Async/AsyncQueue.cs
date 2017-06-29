@@ -15,9 +15,9 @@ namespace Bogosoft.Collections.Async
         {
             bool active, disposed;
 
-            private Queue<T>.Enumerator enumerator;
+            Queue<T>.Enumerator enumerator;
 
-            private ReaderWriterLockSlim @lock;
+            ReaderWriterLockSlim @lock;
 
             public bool IsDisposed => disposed;
 
@@ -101,8 +101,8 @@ namespace Bogosoft.Collections.Async
             }
         }
 
-        private ReaderWriterLockSlim @lock = new ReaderWriterLockSlim();
-        private Queue<T> queue;
+        ReaderWriterLockSlim @lock = new ReaderWriterLockSlim();
+        Queue<T> queue;
 
         /// <summary>
         /// Create a new instance of the <see cref="AsyncQueue{T}"/> class.

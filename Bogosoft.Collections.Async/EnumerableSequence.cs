@@ -9,9 +9,9 @@ namespace Bogosoft.Collections.Async
     {
         struct Cursor : ICursor<T>
         {
-            private IEnumerator<T> enumerator;
+            IEnumerator<T> enumerator;
 
-            private bool active, disposed;
+            bool active, disposed;
 
             public bool IsDisposed => disposed;
 
@@ -59,7 +59,7 @@ namespace Bogosoft.Collections.Async
             }
         }
 
-        private IEnumerable<T> enumerable;
+        IEnumerable<T> enumerable;
 
         public EnumerableSequence(IEnumerable<T> enumerable)
         {
