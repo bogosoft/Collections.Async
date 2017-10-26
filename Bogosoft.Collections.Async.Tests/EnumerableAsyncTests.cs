@@ -144,7 +144,7 @@ namespace Bogosoft.Collections.Async.Tests
 
             (sequence is IEnumerableAsync<int>).ShouldBeTrue();
 
-            using (var cursor = await sequence.GetCursorAsync())
+            using (var cursor = await sequence.GetEnumeratorAsync())
             {
                 (await cursor.MoveNextAsync()).ShouldBeTrue();
 

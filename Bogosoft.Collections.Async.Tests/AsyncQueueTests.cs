@@ -185,7 +185,7 @@ namespace Bogosoft.Collections.Async.Tests
 
             var queue = new AsyncQueue<int>(Enumerable.Range(0, size));
 
-            using (var cursor = await queue.GetCursorAsync())
+            using (var cursor = await queue.GetEnumeratorAsync())
             {
                 (await cursor.MoveNextAsync()).ShouldBeTrue();
             }
