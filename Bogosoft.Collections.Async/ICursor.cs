@@ -11,16 +11,6 @@ namespace Bogosoft.Collections.Async
     public interface ICursor<T> : IDisposable
     {
         /// <summary>
-        /// Get a value indicating whether the current cursor has been disposed of.
-        /// </summary>
-        bool IsDisposed { get; }
-
-        /// <summary>
-        /// Get a value indicating whether the current cursor has moved past its last record.
-        /// </summary>
-        bool IsExpended { get; }
-
-        /// <summary>
         /// Get the item pointed at by the present position of the current cursor.
         /// </summary>
         /// <param name="token">A <see cref="CancellationToken"/> object.</param>

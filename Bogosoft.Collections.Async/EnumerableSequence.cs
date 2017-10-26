@@ -11,38 +11,18 @@ namespace Bogosoft.Collections.Async
         {
             IEnumerator<T> enumerator;
 
-            bool active, disposed;
-
-            public bool IsDisposed => disposed;
-
-            public bool IsExpended => !active;
-
             internal Cursor(IEnumerable<T> enumerable)
             {
-                active = disposed = false;
-
                 enumerator = enumerable.GetEnumerator();
             }
 
             public void Dispose()
             {
-                if (!disposed)
-                {
-                    enumerator.Dispose();
-
-                    disposed = true;
-                }
+                enumerator.Dispose();
             }
 
             public Task<T> GetCurrentAsync(CancellationToken token)
             {
-                token.ThrowIfCancellationRequested();
-
-                if (!active)
-                {
-                    throw new InvalidOperationException(Message.CursorNotInitialized);
-                }
-
                 return Task.FromResult(enumerator.Current);
             }
 
@@ -54,7 +34,7 @@ namespace Bogosoft.Collections.Async
                 }
                 else
                 {
-                    return Task.FromResult(active = enumerator.MoveNext());
+                    return Task.FromResult(enumerator.MoveNext());
                 }
             }
         }

@@ -13,19 +13,15 @@ namespace Bogosoft.Collections.Async
     {
         struct Cursor : ICursor<T>
         {
-            bool active, disposed;
+            bool active;
 
             Queue<T>.Enumerator enumerator;
 
             ReaderWriterLockSlim @lock;
 
-            public bool IsDisposed => disposed;
-
-            public bool IsExpended => !active;
-
             internal Cursor(Queue<T> queue)
             {
-                active = disposed = false;
+                active = false;
 
                 enumerator = queue.GetEnumerator();
 
@@ -38,20 +34,15 @@ namespace Bogosoft.Collections.Async
 
                 try
                 {
-                    if (!disposed)
+                    @lock.EnterWriteLock();
+
+                    try
                     {
-                        @lock.EnterWriteLock();
-
-                        try
-                        {
-                            enumerator.Dispose();
-
-                            disposed = true;
-                        }
-                        finally
-                        {
-                            @lock.ExitWriteLock();
-                        }
+                        enumerator.Dispose();
+                    }
+                    finally
+                    {
+                        @lock.ExitWriteLock();
                     }
                 }
                 finally
