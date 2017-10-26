@@ -111,7 +111,7 @@ namespace Bogosoft.Collections.Async
         /// <typeparam name="T">The type of the items capable of being enumerated.</typeparam>
         /// <param name="sequence">The current <see cref="IEnumerableAsync{T}"/> implementation.</param>
         /// <returns>An asynchronous enumerator.</returns>
-        public static Task<IAsyncEnumerator<T>> GetCursorAsync<T>(this IEnumerableAsync<T> sequence)
+        public static Task<IAsyncEnumerator<T>> GetEnumeratorAsync<T>(this IEnumerableAsync<T> sequence)
         {
             return sequence.GetEnumeratorAsync(CancellationToken.None);
         }
