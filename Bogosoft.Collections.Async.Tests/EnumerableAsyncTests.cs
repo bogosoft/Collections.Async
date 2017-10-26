@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Bogosoft.Collections.Async.Tests
 {
     [TestFixture, Category("Unit")]
-    public class TraversalTests
+    public class EnumerableAsyncTests
     {
         protected IEnumerable<int> RandomIntegers
         {
@@ -26,7 +26,7 @@ namespace Bogosoft.Collections.Async.Tests
         }
 
         [TestCase]
-        public void CanConvertEnumerableToTraversable()
+        public void CanConvertEnumerableToAsyncEnumerable()
         {
             var ints = new int[] { 0, 1, 2, 3, 4 };
 
@@ -73,7 +73,7 @@ namespace Bogosoft.Collections.Async.Tests
         }
 
         [TestCase]
-        public async Task CanConvertTraversableToArrayAsync()
+        public async Task CanConvertAsyncEnumerableToArrayAsync()
         {
             var ints = RandomIntegers.ToArray();
 
@@ -153,7 +153,7 @@ namespace Bogosoft.Collections.Async.Tests
         }
 
         [TestCase]
-        public async Task EmptyCursorThrowsNotSupportedExceptionOnGetCurrentAsync()
+        public async Task EmptyAsyncEnumeratorThrowsNotSupportedExceptionOnGetCurrentAsync()
         {
             var cursor = AsyncEnumerator<int>.Empty;
 
