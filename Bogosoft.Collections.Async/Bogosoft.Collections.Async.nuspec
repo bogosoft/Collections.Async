@@ -6,7 +6,7 @@
 		<description>$description$</description>
 		<id>$id$</id>
 		<owners>$author$</owners>
-		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<projectUrl>https://github.com/bogosoft/Collections.Async</projectUrl>
 		<title>$title$</title>
 		<version>$version$</version>
 	</metadata>
