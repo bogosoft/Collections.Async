@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace Bogosoft.Collections.Async
 {
-    class EnumerableSequence<T> : ITraversable<T>
+    class EnumerableSequence<T> : IEnumerableAsync<T>
     {
-        struct Cursor : ICursor<T>
+        struct Cursor : IAsyncEnumerator<T>
         {
             IEnumerator<T> enumerator;
 
@@ -46,9 +46,9 @@ namespace Bogosoft.Collections.Async
             this.enumerable = enumerable;
         }
 
-        public Task<ICursor<T>> GetCursorAsync(CancellationToken token)
+        public Task<IAsyncEnumerator<T>> GetEnumeratorAsync(CancellationToken token)
         {
-            ICursor<T> cursor;
+            IAsyncEnumerator<T> cursor;
 
             if (token.IsCancellationRequested)
             {

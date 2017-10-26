@@ -11,7 +11,7 @@ namespace Bogosoft.Collections.Async
     /// <typeparam name="T">The type of the queued items.</typeparam>
     public sealed class AsyncQueue<T> : IAsyncQueue<T>
     {
-        struct Cursor : ICursor<T>
+        struct Cursor : IAsyncEnumerator<T>
         {
             bool active;
 
@@ -258,9 +258,9 @@ namespace Bogosoft.Collections.Async
         /// </summary>
         /// <param name="token">A <see cref="CancellationToken"/> object.</param>
         /// <returns>A readable, forward-only cursor.</returns>
-        public Task<ICursor<T>> GetCursorAsync(CancellationToken token)
+        public Task<IAsyncEnumerator<T>> GetEnumeratorAsync(CancellationToken token)
         {
-            ICursor<T> cursor;
+            IAsyncEnumerator<T> cursor;
 
             if (token.IsCancellationRequested)
             {

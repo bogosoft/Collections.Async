@@ -8,6 +8,6 @@
         /// <summary>
         /// Get an empty cursor.
         /// </summary>
-        public static ICursor<T> Empty => new EmptyCursor<T>();
+        public static IAsyncEnumerator<T> Empty => new EmptyCursor<T>();
     }
 }

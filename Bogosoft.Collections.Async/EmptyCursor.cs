@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace Bogosoft.Collections.Async
 {
-    struct EmptyCursor<T> : ICursor<T>
+    struct EmptyCursor<T> : IAsyncEnumerator<T>
     {
         public void Dispose()
         {

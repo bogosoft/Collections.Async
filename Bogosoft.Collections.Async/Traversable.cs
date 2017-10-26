@@ -1,14 +1,14 @@
 ﻿namespace Bogosoft.Collections.Async
 {
     /// <summary>
-    /// Provides a set of static methods for working with <see cref="ITraversable{T}"/> types.
+    /// Provides a set of static methods for working with <see cref="IEnumerableAsync{T}"/> types.
     /// </summary>
     public static class Traversable<T>
     {
         /// <summary>
         /// Get an empty traversable sequence.
         /// </summary>
-        public static ITraversable<T> Empty => new EmptySequence<T>();
+        public static IEnumerableAsync<T> Empty => new EmptySequence<T>();
 
         /// <summary>
         /// Create a traversable sequence from one or more given items.
@@ -17,7 +17,7 @@
         /// <returns>
         /// A traversable sequence consisting of the given items.
         /// </returns>
-        public static ITraversable<T> From(params T[] items)
+        public static IEnumerableAsync<T> From(params T[] items)
         {
             return new EnumerableSequence<T>(items);
         }

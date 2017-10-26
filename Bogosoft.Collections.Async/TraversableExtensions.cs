@@ -6,22 +6,22 @@ using System.Threading.Tasks;
 namespace Bogosoft.Collections.Async
 {
     /// <summary>
-    /// Provides a set of static methods for working with <see cref="ITraversable{T}"/> types.
+    /// Provides a set of static methods for working with <see cref="IEnumerableAsync{T}"/> types.
     /// </summary>
     public static class TraversableExtensions
     {
         /// <summary>
         /// Copy items from the current traversable structure sequentially to a target indexable collection. Calling this
-        /// method is equivalent to calling <see cref="CopyToAsync{T}(ITraversable{T}, IList{T}, CancellationToken)"/>
+        /// method is equivalent to calling <see cref="CopyToAsync{T}(IEnumerableAsync{T}, IList{T}, CancellationToken)"/>
         /// with a value of <see cref="CancellationToken.None"/>.
         /// </summary>
         /// <typeparam name="T">The type of the items capable of being traversed.</typeparam>
-        /// <param name="source">The current <see cref="ITraversable{T}"/> implementation.</param>
+        /// <param name="source">The current <see cref="IEnumerableAsync{T}"/> implementation.</param>
         /// <param name="target">An indexable collection to copy traversed items into.</param>
         /// <returns>
         /// A value corresponding to the number of items copied.
         /// </returns>
-        public static Task<int> CopyToAsync<T>(this ITraversable<T> source, IList<T> target)
+        public static Task<int> CopyToAsync<T>(this IEnumerableAsync<T> source, IList<T> target)
         {
             return source.CopyToAsync(target, 0, target.Count, CancellationToken.None);
         }
@@ -30,14 +30,14 @@ namespace Bogosoft.Collections.Async
         /// Copy items from the current traversable structure sequentially to a target indexable collection.
         /// </summary>
         /// <typeparam name="T">The type of the items capable of being traversed.</typeparam>
-        /// <param name="source">The current <see cref="ITraversable{T}"/> implementation.</param>
+        /// <param name="source">The current <see cref="IEnumerableAsync{T}"/> implementation.</param>
         /// <param name="target">An indexable collection to copy traversed items into.</param>
         /// <param name="token">A <see cref="CancellationToken"/> object.</param>
         /// <returns>
         /// A value corresponding to the number of items copied.
         /// </returns>
         public static Task<int> CopyToAsync<T>(
-            this ITraversable<T> source,
+            this IEnumerableAsync<T> source,
             IList<T> target,
             CancellationToken token
             )
@@ -48,11 +48,11 @@ namespace Bogosoft.Collections.Async
         /// <summary>
         /// Copy items from the current traversable structure sequentially to a target indexable collection.
         /// Calling this method is equivalent to calling
-        /// <see cref="CopyToAsync{T}(ITraversable{T}, IList{T}, int, int, CancellationToken)"/>
+        /// <see cref="CopyToAsync{T}(IEnumerableAsync{T}, IList{T}, int, int, CancellationToken)"/>
         /// with value of <see cref="CancellationToken.None"/>.
         /// </summary>
         /// <typeparam name="T">The type of the items capable of being traversed.</typeparam>
-        /// <param name="source">The current <see cref="ITraversable{T}"/> implementation.</param>
+        /// <param name="source">The current <see cref="IEnumerableAsync{T}"/> implementation.</param>
         /// <param name="target">An indexable collection to copy traversed items into.</param>
         /// <param name="start">
         /// A value corresponding to the index of the target to begin copying into.
@@ -64,7 +64,7 @@ namespace Bogosoft.Collections.Async
         /// A value corresponding to the number of items copied.
         /// </returns>
         public static Task<int> CopyToAsync<T>(
-            this ITraversable<T> source,
+            this IEnumerableAsync<T> source,
             IList<T> target,
             int start,
             int count
@@ -77,7 +77,7 @@ namespace Bogosoft.Collections.Async
         /// Copy items from the current traversable structure sequentially to a target indexable collection.
         /// </summary>
         /// <typeparam name="T">The type of the items capable of being traversed.</typeparam>
-        /// <param name="source">The current <see cref="ITraversable{T}"/> implementation.</param>
+        /// <param name="source">The current <see cref="IEnumerableAsync{T}"/> implementation.</param>
         /// <param name="target">An indexable collection to copy traversed items into.</param>
         /// <param name="start">
         /// A value corresponding to the index of the target to begin copying into.
@@ -90,7 +90,7 @@ namespace Bogosoft.Collections.Async
         /// A value corresponding to the number of items copied.
         /// </returns>
         public static async Task<int> CopyToAsync<T>(
-            this ITraversable<T> source,
+            this IEnumerableAsync<T> source,
             IList<T> target,
             int start,
             int count,
@@ -99,7 +99,7 @@ namespace Bogosoft.Collections.Async
         {
             var copied = 0;
 
-            using (var cursor = await source.GetCursorAsync(token).ConfigureAwait(false))
+            using (var cursor = await source.GetEnumeratorAsync(token).ConfigureAwait(false))
             {
                 while (copied < count && await cursor.MoveNextAsync(token).ConfigureAwait(false))
                 {
@@ -114,22 +114,22 @@ namespace Bogosoft.Collections.Async
         /// Create and return a cursor.
         /// </summary>
         /// <typeparam name="T">The type of the items capable of being traversed.</typeparam>
-        /// <param name="sequence">The current <see cref="ITraversable{T}"/> implementation.</param>
+        /// <param name="sequence">The current <see cref="IEnumerableAsync{T}"/> implementation.</param>
         /// <returns>A readable, forward-only cursor.</returns>
-        public static Task<ICursor<T>> GetCursorAsync<T>(this ITraversable<T> sequence)
+        public static Task<IAsyncEnumerator<T>> GetCursorAsync<T>(this IEnumerableAsync<T> sequence)
         {
-            return sequence.GetCursorAsync(CancellationToken.None);
+            return sequence.GetEnumeratorAsync(CancellationToken.None);
         }
 
         /// <summary>
         /// Convert the current traversable type to an array and return it. Calling this method is equivalent to
-        /// calling <see cref="ToArrayAsync{T}(ITraversable{T}, CancellationToken)"/> with a value
+        /// calling <see cref="ToArrayAsync{T}(IEnumerableAsync{T}, CancellationToken)"/> with a value
         /// of <see cref="CancellationToken.None"/>.
         /// </summary>
         /// <typeparam name="T">The type of the items to be included in the array.</typeparam>
-        /// <param name="source">The current <see cref="ITraversable{T}"/> implementation.</param>
+        /// <param name="source">The current <see cref="IEnumerableAsync{T}"/> implementation.</param>
         /// <returns>An array of items of the traversed type.</returns>
-        public static Task<T[]> ToArrayAsync<T>(this ITraversable<T> source)
+        public static Task<T[]> ToArrayAsync<T>(this IEnumerableAsync<T> source)
         {
             return source.ToArrayAsync(CancellationToken.None);
         }
@@ -138,10 +138,10 @@ namespace Bogosoft.Collections.Async
         /// Convert the current traversable type to an array and return it.
         /// </summary>
         /// <typeparam name="T">The type of the items to be included in the array.</typeparam>
-        /// <param name="source">The current <see cref="ITraversable{T}"/> implementation.</param>
+        /// <param name="source">The current <see cref="IEnumerableAsync{T}"/> implementation.</param>
         /// <param name="token">A <see cref="CancellationToken"/> object.</param>
         /// <returns>An array of items of the traversed type.</returns>
-        public static async Task<T[]> ToArrayAsync<T>(this ITraversable<T> source, CancellationToken token)
+        public static async Task<T[]> ToArrayAsync<T>(this IEnumerableAsync<T> source, CancellationToken token)
         {
             if (token.IsCancellationRequested)
             {
@@ -152,7 +152,7 @@ namespace Bogosoft.Collections.Async
 
             var count = 0;
 
-            using (var cursor = await source.GetCursorAsync(token).ConfigureAwait(false))
+            using (var cursor = await source.GetEnumeratorAsync(token).ConfigureAwait(false))
             {
                 while (await cursor.MoveNextAsync(token).ConfigureAwait(false))
                 {
@@ -177,9 +177,9 @@ namespace Bogosoft.Collections.Async
         /// Convert the current traversable type to a list.
         /// </summary>
         /// <typeparam name="T">The type of the items to be included in the array.</typeparam>
-        /// <param name="source">The current <see cref="ITraversable{T}"/> implementation.</param>
+        /// <param name="source">The current <see cref="IEnumerableAsync{T}"/> implementation.</param>
         /// <returns>A list of items of the traversed type.</returns>
-        public static Task<List<T>> ToListAsync<T>(this ITraversable<T> source)
+        public static Task<List<T>> ToListAsync<T>(this IEnumerableAsync<T> source)
         {
             return source.ToListAsync(CancellationToken.None);
         }
@@ -188,10 +188,10 @@ namespace Bogosoft.Collections.Async
         /// Convert the current traversable type to a list.
         /// </summary>
         /// <typeparam name="T">The type of the items to be included in the array.</typeparam>
-        /// <param name="source">The current <see cref="ITraversable{T}"/> implementation.</param>
+        /// <param name="source">The current <see cref="IEnumerableAsync{T}"/> implementation.</param>
         /// <param name="token">A <see cref="CancellationToken"/> object.</param>
         /// <returns>A list of items of the traversed type.</returns>
-        public static async Task<List<T>> ToListAsync<T>(this ITraversable<T> source, CancellationToken token)
+        public static async Task<List<T>> ToListAsync<T>(this IEnumerableAsync<T> source, CancellationToken token)
         {
             if (token.IsCancellationRequested)
             {
@@ -200,7 +200,7 @@ namespace Bogosoft.Collections.Async
 
             var target = new List<T>();
 
-            using (var cursor = await source.GetCursorAsync(token).ConfigureAwait(false))
+            using (var cursor = await source.GetEnumeratorAsync(token).ConfigureAwait(false))
             {
                 while (await cursor.MoveNextAsync(token).ConfigureAwait(false))
                 {
