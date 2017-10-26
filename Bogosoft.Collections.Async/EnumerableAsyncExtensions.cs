@@ -8,16 +8,14 @@ namespace Bogosoft.Collections.Async
     /// <summary>
     /// Provides a set of static methods for working with <see cref="IEnumerableAsync{T}"/> types.
     /// </summary>
-    public static class TraversableExtensions
+    public static class EnumerableAsyncExtensions
     {
         /// <summary>
-        /// Copy items from the current traversable structure sequentially to a target indexable collection. Calling this
-        /// method is equivalent to calling <see cref="CopyToAsync{T}(IEnumerableAsync{T}, IList{T}, CancellationToken)"/>
-        /// with a value of <see cref="CancellationToken.None"/>.
+        /// Copy items from the current enumerable structure sequentially to a target indexable collection.
         /// </summary>
-        /// <typeparam name="T">The type of the items capable of being traversed.</typeparam>
+        /// <typeparam name="T">The type of the items capable of being enumerated.</typeparam>
         /// <param name="source">The current <see cref="IEnumerableAsync{T}"/> implementation.</param>
-        /// <param name="target">An indexable collection to copy traversed items into.</param>
+        /// <param name="target">An indexable collection to copy enumerated items into.</param>
         /// <returns>
         /// A value corresponding to the number of items copied.
         /// </returns>
@@ -27,11 +25,11 @@ namespace Bogosoft.Collections.Async
         }
 
         /// <summary>
-        /// Copy items from the current traversable structure sequentially to a target indexable collection.
+        /// Copy items from the current enumerable structure sequentially to a target indexable collection.
         /// </summary>
-        /// <typeparam name="T">The type of the items capable of being traversed.</typeparam>
+        /// <typeparam name="T">The type of the items capable of being enumerated.</typeparam>
         /// <param name="source">The current <see cref="IEnumerableAsync{T}"/> implementation.</param>
-        /// <param name="target">An indexable collection to copy traversed items into.</param>
+        /// <param name="target">An indexable collection to copy enumerated items into.</param>
         /// <param name="token">A <see cref="CancellationToken"/> object.</param>
         /// <returns>
         /// A value corresponding to the number of items copied.
@@ -46,14 +44,11 @@ namespace Bogosoft.Collections.Async
         }
 
         /// <summary>
-        /// Copy items from the current traversable structure sequentially to a target indexable collection.
-        /// Calling this method is equivalent to calling
-        /// <see cref="CopyToAsync{T}(IEnumerableAsync{T}, IList{T}, int, int, CancellationToken)"/>
-        /// with value of <see cref="CancellationToken.None"/>.
+        /// Copy items from the current enumerable structure sequentially to a target indexable collection.
         /// </summary>
-        /// <typeparam name="T">The type of the items capable of being traversed.</typeparam>
+        /// <typeparam name="T">The type of the items capable of being enumerated.</typeparam>
         /// <param name="source">The current <see cref="IEnumerableAsync{T}"/> implementation.</param>
-        /// <param name="target">An indexable collection to copy traversed items into.</param>
+        /// <param name="target">An indexable collection to copy enumerated items into.</param>
         /// <param name="start">
         /// A value corresponding to the index of the target to begin copying into.
         /// </param>
@@ -74,11 +69,11 @@ namespace Bogosoft.Collections.Async
         }
 
         /// <summary>
-        /// Copy items from the current traversable structure sequentially to a target indexable collection.
+        /// Copy items from the current enumerable structure sequentially to a target indexable collection.
         /// </summary>
-        /// <typeparam name="T">The type of the items capable of being traversed.</typeparam>
+        /// <typeparam name="T">The type of the items capable of being enumerated.</typeparam>
         /// <param name="source">The current <see cref="IEnumerableAsync{T}"/> implementation.</param>
-        /// <param name="target">An indexable collection to copy traversed items into.</param>
+        /// <param name="target">An indexable collection to copy enumerated items into.</param>
         /// <param name="start">
         /// A value corresponding to the index of the target to begin copying into.
         /// </param>
@@ -111,36 +106,34 @@ namespace Bogosoft.Collections.Async
         }
 
         /// <summary>
-        /// Create and return a cursor.
+        /// Get an asynchronous enumerator.
         /// </summary>
-        /// <typeparam name="T">The type of the items capable of being traversed.</typeparam>
+        /// <typeparam name="T">The type of the items capable of being enumerated.</typeparam>
         /// <param name="sequence">The current <see cref="IEnumerableAsync{T}"/> implementation.</param>
-        /// <returns>A readable, forward-only cursor.</returns>
+        /// <returns>An asynchronous enumerator.</returns>
         public static Task<IAsyncEnumerator<T>> GetCursorAsync<T>(this IEnumerableAsync<T> sequence)
         {
             return sequence.GetEnumeratorAsync(CancellationToken.None);
         }
 
         /// <summary>
-        /// Convert the current traversable type to an array and return it. Calling this method is equivalent to
-        /// calling <see cref="ToArrayAsync{T}(IEnumerableAsync{T}, CancellationToken)"/> with a value
-        /// of <see cref="CancellationToken.None"/>.
+        /// Convert the current asynchronously enumerable type to an array.
         /// </summary>
         /// <typeparam name="T">The type of the items to be included in the array.</typeparam>
         /// <param name="source">The current <see cref="IEnumerableAsync{T}"/> implementation.</param>
-        /// <returns>An array of items of the traversed type.</returns>
+        /// <returns>An array of items of the enumerated type.</returns>
         public static Task<T[]> ToArrayAsync<T>(this IEnumerableAsync<T> source)
         {
             return source.ToArrayAsync(CancellationToken.None);
         }
 
         /// <summary>
-        /// Convert the current traversable type to an array and return it.
+        /// Convert the current asynchronously enumerable type to an array.
         /// </summary>
         /// <typeparam name="T">The type of the items to be included in the array.</typeparam>
         /// <param name="source">The current <see cref="IEnumerableAsync{T}"/> implementation.</param>
         /// <param name="token">A <see cref="CancellationToken"/> object.</param>
-        /// <returns>An array of items of the traversed type.</returns>
+        /// <returns>An array of items of the enumerated type.</returns>
         public static async Task<T[]> ToArrayAsync<T>(this IEnumerableAsync<T> source, CancellationToken token)
         {
             if (token.IsCancellationRequested)
@@ -174,23 +167,23 @@ namespace Bogosoft.Collections.Async
         }
 
         /// <summary>
-        /// Convert the current traversable type to a list.
+        /// Convert the current asynchronously enumerable type to a list.
         /// </summary>
-        /// <typeparam name="T">The type of the items to be included in the array.</typeparam>
+        /// <typeparam name="T">The type of the items to be included in the list.</typeparam>
         /// <param name="source">The current <see cref="IEnumerableAsync{T}"/> implementation.</param>
-        /// <returns>A list of items of the traversed type.</returns>
+        /// <returns>A list of items of the enumerated type.</returns>
         public static Task<List<T>> ToListAsync<T>(this IEnumerableAsync<T> source)
         {
             return source.ToListAsync(CancellationToken.None);
         }
 
         /// <summary>
-        /// Convert the current traversable type to a list.
+        /// Convert the current asynchronously enumerable type to a list.
         /// </summary>
-        /// <typeparam name="T">The type of the items to be included in the array.</typeparam>
+        /// <typeparam name="T">The type of the items to be included in the list.</typeparam>
         /// <param name="source">The current <see cref="IEnumerableAsync{T}"/> implementation.</param>
         /// <param name="token">A <see cref="CancellationToken"/> object.</param>
-        /// <returns>A list of items of the traversed type.</returns>
+        /// <returns>A list of items of the enumerated type.</returns>
         public static async Task<List<T>> ToListAsync<T>(this IEnumerableAsync<T> source, CancellationToken token)
         {
             if (token.IsCancellationRequested)
