@@ -61,7 +61,7 @@ namespace Bogosoft.Collections.Async
                 {
                     if (!active)
                     {
-                        throw new InvalidOperationException(Message.CursorNotInitialized);
+                        throw new InvalidOperationException(Message.EnumeratorNotInitialized);
                     }
 
                     return Task.FromResult(enumerator.Current);
