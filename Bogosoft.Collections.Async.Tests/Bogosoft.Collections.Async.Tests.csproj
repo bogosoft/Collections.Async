@@ -48,7 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AsyncQueueTests.cs" />
-    <Compile Include="TraversalTests.cs" />
+    <Compile Include="EnumerableAsyncTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

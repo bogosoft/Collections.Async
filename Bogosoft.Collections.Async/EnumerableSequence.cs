@@ -1,48 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Bogosoft.Collections.Async
 {
-    class EnumerableSequence<T> : ITraversable<T>
+    class EnumerableSequence<T> : IEnumerableAsync<T>
     {
-        struct Cursor : ICursor<T>
+        struct Enumerator : IAsyncEnumerator<T>
         {
             IEnumerator<T> enumerator;
 
-            bool active, disposed;
-
-            public bool IsDisposed => disposed;
-
-            public bool IsExpended => !active;
-
-            internal Cursor(IEnumerable<T> enumerable)
+            internal Enumerator(IEnumerable<T> enumerable)
             {
-                active = disposed = false;
-
                 enumerator = enumerable.GetEnumerator();
             }
 
             public void Dispose()
             {
-                if (!disposed)
-                {
-                    enumerator.Dispose();
-
-                    disposed = true;
-                }
+                enumerator.Dispose();
             }
 
             public Task<T> GetCurrentAsync(CancellationToken token)
             {
-                token.ThrowIfCancellationRequested();
-
-                if (!active)
-                {
-                    throw new InvalidOperationException(Message.CursorNotInitialized);
-                }
-
                 return Task.FromResult(enumerator.Current);
             }
 
@@ -54,7 +33,7 @@ namespace Bogosoft.Collections.Async
                 }
                 else
                 {
-                    return Task.FromResult(active = enumerator.MoveNext());
+                    return Task.FromResult(enumerator.MoveNext());
                 }
             }
         }
@@ -66,17 +45,17 @@ namespace Bogosoft.Collections.Async
             this.enumerable = enumerable;
         }
 
-        public Task<ICursor<T>> GetCursorAsync(CancellationToken token)
+        public Task<IAsyncEnumerator<T>> GetEnumeratorAsync(CancellationToken token)
         {
-            ICursor<T> cursor;
+            IAsyncEnumerator<T> cursor;
 
             if (token.IsCancellationRequested)
             {
-                cursor = Cursor<T>.Empty;
+                cursor = AsyncEnumerator<T>.Empty;
             }
             else
             {
-                cursor = new Cursor(enumerable);
+                cursor = new Enumerator(enumerable);
             }
 
             return Task.FromResult(cursor);

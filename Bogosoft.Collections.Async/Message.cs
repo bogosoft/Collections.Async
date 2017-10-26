@@ -6,9 +6,9 @@
     public static class Message
     {
         /// <summary>
-        /// Get a message indicating that an associated cursor has not been initialized.
+        /// Get a message indicating that an associated asynchronoys enumerator has not been initialized.
         /// </summary>
-        public const string CursorNotInitialized = "This cursor has not been initialized.";
+        public const string EnumeratorNotInitialized = "This cursor has not been initialized.";
 
         /// <summary>
         /// Get a message indicating that a queue is empty.

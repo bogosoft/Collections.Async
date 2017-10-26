@@ -198,7 +198,7 @@ namespace Bogosoft.Collections.Async.Tests
 
                 source.Cancel();
 
-                using (var cursor = await queue.GetCursorAsync(token))
+                using (var cursor = await queue.GetEnumeratorAsync(token))
                 {
                     (await cursor.MoveNextAsync()).ShouldBeFalse();
                 }

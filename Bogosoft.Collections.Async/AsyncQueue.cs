@@ -11,21 +11,17 @@ namespace Bogosoft.Collections.Async
     /// <typeparam name="T">The type of the queued items.</typeparam>
     public sealed class AsyncQueue<T> : IAsyncQueue<T>
     {
-        struct Cursor : ICursor<T>
+        struct Enumerator : IAsyncEnumerator<T>
         {
-            bool active, disposed;
+            bool active;
 
             Queue<T>.Enumerator enumerator;
 
             ReaderWriterLockSlim @lock;
 
-            public bool IsDisposed => disposed;
-
-            public bool IsExpended => !active;
-
-            internal Cursor(Queue<T> queue)
+            internal Enumerator(Queue<T> queue)
             {
-                active = disposed = false;
+                active = false;
 
                 enumerator = queue.GetEnumerator();
 
@@ -38,20 +34,15 @@ namespace Bogosoft.Collections.Async
 
                 try
                 {
-                    if (!disposed)
+                    @lock.EnterWriteLock();
+
+                    try
                     {
-                        @lock.EnterWriteLock();
-
-                        try
-                        {
-                            enumerator.Dispose();
-
-                            disposed = true;
-                        }
-                        finally
-                        {
-                            @lock.ExitWriteLock();
-                        }
+                        enumerator.Dispose();
+                    }
+                    finally
+                    {
+                        @lock.ExitWriteLock();
                     }
                 }
                 finally
@@ -70,7 +61,7 @@ namespace Bogosoft.Collections.Async
                 {
                     if (!active)
                     {
-                        throw new InvalidOperationException(Message.CursorNotInitialized);
+                        throw new InvalidOperationException(Message.EnumeratorNotInitialized);
                     }
 
                     return Task.FromResult(enumerator.Current);
@@ -165,7 +156,7 @@ namespace Bogosoft.Collections.Async
         }
 
         /// <summary>
-        /// Count the number of currently queue items.
+        /// Count the number of currently queued items.
         /// </summary>
         /// <param name="token">A <see cref="CancellationToken"/> object.</param>
         /// <returns>
@@ -267,17 +258,17 @@ namespace Bogosoft.Collections.Async
         /// </summary>
         /// <param name="token">A <see cref="CancellationToken"/> object.</param>
         /// <returns>A readable, forward-only cursor.</returns>
-        public Task<ICursor<T>> GetCursorAsync(CancellationToken token)
+        public Task<IAsyncEnumerator<T>> GetEnumeratorAsync(CancellationToken token)
         {
-            ICursor<T> cursor;
+            IAsyncEnumerator<T> cursor;
 
             if (token.IsCancellationRequested)
             {
-                cursor = Cursor<T>.Empty;
+                cursor = AsyncEnumerator<T>.Empty;
             }
             else
             {
-                cursor = new Cursor(queue);
+                cursor = new Enumerator(queue);
             }
 
             return Task.FromResult(cursor);

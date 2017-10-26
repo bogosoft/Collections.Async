@@ -44,23 +44,23 @@
   <ItemGroup>
     <Compile Include="AsyncQueue.cs" />
     <Compile Include="CountExtensions.cs" />
-    <Compile Include="Cursor.cs" />
-    <Compile Include="CursorExtensions.cs" />
-    <Compile Include="EmptyCursor.cs" />
+    <Compile Include="AsyncEnumerator.cs" />
+    <Compile Include="AsyncEnumeratorExtensions.cs" />
+    <Compile Include="EmptyAsyncEnumerator.cs" />
     <Compile Include="EmptySequence.cs" />
     <Compile Include="EmptySequenceException.cs" />
     <Compile Include="EnumerableExtensions.cs" />
     <Compile Include="EnumerableSequence.cs" />
     <Compile Include="IAsyncQueue.cs" />
     <Compile Include="ICount.cs" />
-    <Compile Include="ICursor.cs" />
-    <Compile Include="ITraversable.cs" />
+    <Compile Include="IAsyncEnumerator.cs" />
+    <Compile Include="IEnumerableAsync.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueueExtensions.cs" />
-    <Compile Include="Traversable.cs" />
-    <Compile Include="TraversableExtensions.cs" />
-    <Compile Include="TraversalException.cs" />
+    <Compile Include="EnumerableAsync.cs" />
+    <Compile Include="EnumerableAsyncExtensions.cs" />
+    <Compile Include="EnumerableAsyncException.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Bogosoft.Collections.Async.nuspec" />
