@@ -3,19 +3,19 @@
     /// <summary>
     /// Provides a set of static methods for working with <see cref="IEnumerableAsync{T}"/> types.
     /// </summary>
-    public static class Traversable<T>
+    public static class EnumerableAsync<T>
     {
         /// <summary>
-        /// Get an empty traversable sequence.
+        /// Get an empty asynchronously enumerable sequence.
         /// </summary>
         public static IEnumerableAsync<T> Empty => new EmptySequence<T>();
 
         /// <summary>
-        /// Create a traversable sequence from one or more given items.
+        /// Create an asynchronously enumerable sequence from one or more given items.
         /// </summary>
-        /// <param name="items">Items to include in a traversable sequence.</param>
+        /// <param name="items">Items to include in an asynchronously enumerable sequence.</param>
         /// <returns>
-        /// A traversable sequence consisting of the given items.
+        /// An asynchronously enumerable sequence consisting of the given items.
         /// </returns>
         public static IEnumerableAsync<T> From(params T[] items)
         {

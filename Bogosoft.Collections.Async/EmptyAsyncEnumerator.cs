@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace Bogosoft.Collections.Async
 {
-    struct EmptyCursor<T> : IAsyncEnumerator<T>
+    struct EmptyAsyncEnumerator<T> : IAsyncEnumerator<T>
     {
         public void Dispose()
         {
@@ -15,9 +15,6 @@ namespace Bogosoft.Collections.Async
             throw new NotSupportedException();
         }
 
-        public Task<bool> MoveNextAsync(CancellationToken token)
-        {
-            return Task.FromResult(false);
-        }
+        public Task<bool> MoveNextAsync(CancellationToken token) => Task.FromResult(false);
     }
 }

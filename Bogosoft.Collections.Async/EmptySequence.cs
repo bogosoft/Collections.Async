@@ -7,7 +7,7 @@ namespace Bogosoft.Collections.Async
     {
         public Task<IAsyncEnumerator<T>> GetEnumeratorAsync(CancellationToken token)
         {
-            return Task.FromResult<IAsyncEnumerator<T>>(new EmptyCursor<T>());
+            return Task.FromResult<IAsyncEnumerator<T>>(new EmptyAsyncEnumerator<T>());
         }
     }
 }

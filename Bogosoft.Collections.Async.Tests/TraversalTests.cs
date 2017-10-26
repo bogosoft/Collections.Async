@@ -140,7 +140,7 @@ namespace Bogosoft.Collections.Async.Tests
         [TestCase]
         public async Task CanCreateSequenceFromVariadicArgumentsAsync()
         {
-            var sequence = Traversable<int>.From(0, 1, 2, 3, 4);
+            var sequence = EnumerableAsync<int>.From(0, 1, 2, 3, 4);
 
             (sequence is IEnumerableAsync<int>).ShouldBeTrue();
 
@@ -155,7 +155,7 @@ namespace Bogosoft.Collections.Async.Tests
         [TestCase]
         public async Task EmptyCursorThrowsNotSupportedExceptionOnGetCurrentAsync()
         {
-            var cursor = Cursor<int>.Empty;
+            var cursor = AsyncEnumerator<int>.Empty;
 
             Exception exception = null;
 

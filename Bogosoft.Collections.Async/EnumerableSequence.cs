@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -7,11 +6,11 @@ namespace Bogosoft.Collections.Async
 {
     class EnumerableSequence<T> : IEnumerableAsync<T>
     {
-        struct Cursor : IAsyncEnumerator<T>
+        struct Enumerator : IAsyncEnumerator<T>
         {
             IEnumerator<T> enumerator;
 
-            internal Cursor(IEnumerable<T> enumerable)
+            internal Enumerator(IEnumerable<T> enumerable)
             {
                 enumerator = enumerable.GetEnumerator();
             }
@@ -52,11 +51,11 @@ namespace Bogosoft.Collections.Async
 
             if (token.IsCancellationRequested)
             {
-                cursor = Cursor<T>.Empty;
+                cursor = AsyncEnumerator<T>.Empty;
             }
             else
             {
-                cursor = new Cursor(enumerable);
+                cursor = new Enumerator(enumerable);
             }
 
             return Task.FromResult(cursor);
