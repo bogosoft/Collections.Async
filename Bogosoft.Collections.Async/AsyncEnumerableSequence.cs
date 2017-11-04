@@ -4,11 +4,13 @@ using System.Threading.Tasks;
 
 namespace Bogosoft.Collections.Async
 {
-    class EnumerableSequence<T> : IEnumerableAsync<T>
+    class AsyncEnumerableSequence<T> : IAsyncEnumerable<T>
     {
-        struct Enumerator : IAsyncEnumerator<T>
+        class Enumerator : IAsyncEnumerator<T>
         {
             IEnumerator<T> enumerator;
+
+            public T Current => enumerator.Current;
 
             internal Enumerator(IEnumerable<T> enumerable)
             {
@@ -18,11 +20,6 @@ namespace Bogosoft.Collections.Async
             public void Dispose()
             {
                 enumerator.Dispose();
-            }
-
-            public Task<T> GetCurrentAsync(CancellationToken token)
-            {
-                return Task.FromResult(enumerator.Current);
             }
 
             public Task<bool> MoveNextAsync(CancellationToken token)
@@ -40,25 +37,11 @@ namespace Bogosoft.Collections.Async
 
         IEnumerable<T> enumerable;
 
-        public EnumerableSequence(IEnumerable<T> enumerable)
+        public AsyncEnumerableSequence(IEnumerable<T> enumerable)
         {
             this.enumerable = enumerable;
         }
 
-        public Task<IAsyncEnumerator<T>> GetEnumeratorAsync(CancellationToken token)
-        {
-            IAsyncEnumerator<T> cursor;
-
-            if (token.IsCancellationRequested)
-            {
-                cursor = AsyncEnumerator<T>.Empty;
-            }
-            else
-            {
-                cursor = new Enumerator(enumerable);
-            }
-
-            return Task.FromResult(cursor);
-        }
+        public IAsyncEnumerator<T> GetEnumerator() => new Enumerator(enumerable);
     }
 }
