@@ -140,20 +140,20 @@ namespace Bogosoft.Collections.Async.Tests
         [TestCase]
         public async Task CanCreateSequenceFromVariadicArgumentsAsync()
         {
-            var sequence = EnumerableAsync<int>.From(0, 1, 2, 3, 4);
+            var sequence = AsyncEnumerable<int>.From(0, 1, 2, 3, 4);
 
             (sequence is IAsyncEnumerable<int>).ShouldBeTrue();
 
-            using (var cursor = await sequence.GetEnumeratorAsync())
+            using (var enumerator = sequence.GetEnumerator())
             {
-                (await cursor.MoveNextAsync()).ShouldBeTrue();
+                (await enumerator.MoveNextAsync()).ShouldBeTrue();
 
-                (await cursor.GetCurrentAsync()).ShouldEqual(0);
+                enumerator.Current.ShouldEqual(0);
             }
         }
 
         [TestCase]
-        public async Task EmptyAsyncEnumeratorThrowsNotSupportedExceptionOnGetCurrentAsync()
+        public void EmptyAsyncEnumeratorThrowsNotSupportedExceptionOnGetCurrent()
         {
             var cursor = AsyncEnumerator<int>.Empty;
 
@@ -161,7 +161,7 @@ namespace Bogosoft.Collections.Async.Tests
 
             try
             {
-                await cursor.GetCurrentAsync();
+                var ignored = cursor.Current;
             }
             catch (NotSupportedException e)
             {

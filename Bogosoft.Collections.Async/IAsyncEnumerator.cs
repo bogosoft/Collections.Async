@@ -8,16 +8,12 @@ namespace Bogosoft.Collections.Async
     /// Represents an asynchronous enumerator.
     /// </summary>
     /// <typeparam name="T">The type of the object which can be enumerated.</typeparam>
-    public interface IAsyncEnumerator<T> : IDisposable
+    public interface IAsyncEnumerator<out T> : IDisposable
     {
         /// <summary>
         /// Get the item pointed at by the present position of the current enumerator.
         /// </summary>
-        /// <param name="token">A <see cref="CancellationToken"/> object.</param>
-        /// <returns>
-        /// The item at the present position of the current enumerator.
-        /// </returns>
-        Task<T> GetCurrentAsync(CancellationToken token);
+        T Current { get; }
 
         /// <summary>
         /// Advance the position of the current enumerator and get a value indicating whether or not

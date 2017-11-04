@@ -3,7 +3,7 @@
     /// <summary>
     /// Provides a set of static methods for working with <see cref="IAsyncEnumerable{T}"/> types.
     /// </summary>
-    public static class EnumerableAsync<T>
+    public static class AsyncEnumerable<T>
     {
         /// <summary>
         /// Get an empty asynchronously enumerable sequence.

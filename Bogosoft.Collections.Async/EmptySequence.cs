@@ -1,13 +1,10 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-
-namespace Bogosoft.Collections.Async
+﻿namespace Bogosoft.Collections.Async
 {
     class EmptySequence<T> : IAsyncEnumerable<T>
     {
-        public Task<IAsyncEnumerator<T>> GetEnumeratorAsync(CancellationToken token)
+        public IAsyncEnumerator<T> GetEnumerator()
         {
-            return Task.FromResult<IAsyncEnumerator<T>>(new EmptyAsyncEnumerator<T>());
+            return new EmptyAsyncEnumerator<T>();
         }
     }
 }

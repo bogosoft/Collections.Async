@@ -94,26 +94,15 @@ namespace Bogosoft.Collections.Async
         {
             var copied = 0;
 
-            using (var cursor = await source.GetEnumeratorAsync(token).ConfigureAwait(false))
+            using (var enumerator = source.GetEnumerator())
             {
-                while (copied < count && await cursor.MoveNextAsync(token).ConfigureAwait(false))
+                while (copied < count && await enumerator.MoveNextAsync(token).ConfigureAwait(false))
                 {
-                    target[start + copied++] = await cursor.GetCurrentAsync(token).ConfigureAwait(false);
+                    target[start + copied++] = enumerator.Current;
                 }
             }
 
             return copied;
-        }
-
-        /// <summary>
-        /// Get an asynchronous enumerator.
-        /// </summary>
-        /// <typeparam name="T">The type of the items capable of being enumerated.</typeparam>
-        /// <param name="sequence">The current <see cref="IAsyncEnumerable{T}"/> implementation.</param>
-        /// <returns>An asynchronous enumerator.</returns>
-        public static Task<IAsyncEnumerator<T>> GetEnumeratorAsync<T>(this IAsyncEnumerable<T> sequence)
-        {
-            return sequence.GetEnumeratorAsync(CancellationToken.None);
         }
 
         /// <summary>
@@ -145,16 +134,16 @@ namespace Bogosoft.Collections.Async
 
             var count = 0;
 
-            using (var cursor = await source.GetEnumeratorAsync(token).ConfigureAwait(false))
+            using (var enumerator = source.GetEnumerator())
             {
-                while (await cursor.MoveNextAsync(token).ConfigureAwait(false))
+                while (await enumerator.MoveNextAsync(token).ConfigureAwait(false))
                 {
                     if (count == target.Length)
                     {
                         Array.Resize(ref target, target.Length * 2);
                     }
 
-                    target[count++] = await cursor.GetCurrentAsync(token).ConfigureAwait(false);
+                    target[count++] = enumerator.Current;
                 }
             }
 
@@ -193,11 +182,11 @@ namespace Bogosoft.Collections.Async
 
             var target = new List<T>();
 
-            using (var cursor = await source.GetEnumeratorAsync(token).ConfigureAwait(false))
+            using (var enumerator = source.GetEnumerator())
             {
-                while (await cursor.MoveNextAsync(token).ConfigureAwait(false))
+                while (await enumerator.MoveNextAsync(token).ConfigureAwait(false))
                 {
-                    target.Add(await cursor.GetCurrentAsync(token).ConfigureAwait(false));
+                    target.Add(enumerator.Current);
                 }
             }
 
