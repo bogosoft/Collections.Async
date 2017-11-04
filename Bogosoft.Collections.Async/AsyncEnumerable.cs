@@ -8,7 +8,7 @@
         /// <summary>
         /// Get an empty asynchronously enumerable sequence.
         /// </summary>
-        public static IAsyncEnumerable<T> Empty => new EmptySequence<T>();
+        public static IAsyncEnumerable<T> Empty => new EmptyAsyncSequence<T>();
 
         /// <summary>
         /// Create an asynchronously enumerable sequence from one or more given items.

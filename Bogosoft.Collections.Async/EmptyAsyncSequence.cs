@@ -1,6 +1,6 @@
 ﻿namespace Bogosoft.Collections.Async
 {
-    class EmptySequence<T> : IAsyncEnumerable<T>
+    class EmptyAsyncSequence<T> : IAsyncEnumerable<T>
     {
         public IAsyncEnumerator<T> GetEnumerator()
         {
