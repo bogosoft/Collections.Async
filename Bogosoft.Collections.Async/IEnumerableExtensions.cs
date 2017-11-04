@@ -5,7 +5,7 @@ namespace Bogosoft.Collections.Async
     /// <summary>
     /// Extended functionality for <see cref="IEnumerable{T}"/> types.
     /// </summary>
-    public static class EnumerableExtensions
+    public static class IEnumerableExtensions
     {
         /// <summary>
         /// Convert the current <see cref="IEnumerable{T}"/> type to an <see cref="IAsyncEnumerable{T}"/> type.

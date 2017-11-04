@@ -48,7 +48,7 @@
     <Compile Include="EmptyAsyncEnumerator.cs" />
     <Compile Include="EmptySequence.cs" />
     <Compile Include="EmptySequenceException.cs" />
-    <Compile Include="EnumerableExtensions.cs" />
+    <Compile Include="IEnumerableExtensions.cs" />
     <Compile Include="AsyncEnumerableSequence.cs" />
     <Compile Include="IAsyncQueue.cs" />
     <Compile Include="ICount.cs" />
