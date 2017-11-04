@@ -42,7 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CountExtensions.cs" />
+    <Compile Include="ICountAsyncExtensions.cs" />
     <Compile Include="AsyncEnumerator.cs" />
     <Compile Include="AsyncEnumeratorExtensions.cs" />
     <Compile Include="EmptyAsyncEnumerator.cs" />

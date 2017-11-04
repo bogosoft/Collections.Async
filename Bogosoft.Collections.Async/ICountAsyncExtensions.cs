@@ -6,7 +6,7 @@ namespace Bogosoft.Collections.Async
     /// <summary>
     /// Extended functionality for the <see cref="ICountAsync{T}"/> contract.
     /// </summary>
-    public static class CountExtensions
+    public static class ICountAsyncExtensions
     {
         /// <summary>
         /// Count the number of objects of the specified type. Calling this method is equivalent to calling
