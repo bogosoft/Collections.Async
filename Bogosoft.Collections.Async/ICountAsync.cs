@@ -7,7 +7,7 @@ namespace Bogosoft.Collections.Async
     /// Indicates that an implementation is capable of counting objects of the given type.
     /// </summary>
     /// <typeparam name="T">The type of the objects that can be counted.</typeparam>
-    public interface ICount<T>
+    public interface ICountAsync<T>
     {
         /// <summary>
         /// Count the number of objects of the specified type.

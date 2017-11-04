@@ -8,7 +8,7 @@ namespace Bogosoft.Collections.Async
     /// Indicates that an implementation is capable of performing queue operations asynchronously.
     /// </summary>
     /// <typeparam name="T">The type of the queued items.</typeparam>
-    public interface IAsyncQueue<T> : ICount<T>, IAsyncEnumerable<T>
+    public interface IAsyncQueue<T> : ICountAsync<T>, IAsyncEnumerable<T>
     {
         /// <summary>
         /// Clear the current queue of all of its queued items.

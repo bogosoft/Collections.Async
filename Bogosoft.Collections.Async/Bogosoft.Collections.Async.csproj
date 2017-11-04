@@ -51,7 +51,7 @@
     <Compile Include="IEnumerableExtensions.cs" />
     <Compile Include="AsyncEnumerableSequence.cs" />
     <Compile Include="IAsyncQueue.cs" />
-    <Compile Include="ICount.cs" />
+    <Compile Include="ICountAsync.cs" />
     <Compile Include="IAsyncEnumerator.cs" />
     <Compile Include="IAsyncEnumerable.cs" />
     <Compile Include="Message.cs" />
