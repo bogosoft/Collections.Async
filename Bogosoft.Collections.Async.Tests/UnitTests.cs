@@ -1,5 +1,5 @@
 ﻿using NUnit.Framework;
-using Should;
+using Shouldly;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Bogosoft.Collections.Async.Tests
 {
     [TestFixture, Category("Unit")]
-    public class EnumerableAsyncTests
+    public class UnitTests
     {
         protected IEnumerable<int> RandomIntegers
         {
@@ -32,7 +32,7 @@ namespace Bogosoft.Collections.Async.Tests
 
             (ints is IEnumerable<int>).ShouldBeTrue();
 
-            (ints.ToTraversable() is IEnumerableAsync<int>).ShouldBeTrue();
+            (ints.ToTraversable() is IAsyncEnumerable<int>).ShouldBeTrue();
         }
 
         [TestCase]
@@ -42,11 +42,11 @@ namespace Bogosoft.Collections.Async.Tests
 
             var traversable = fibonacci.ToTraversable();
 
-            (traversable is IEnumerableAsync<int>).ShouldBeTrue();
+            (traversable is IAsyncEnumerable<int>).ShouldBeTrue();
 
             var converted = await traversable.ToArrayAsync();
 
-            converted.ShouldBeType<int[]>();
+            converted.ShouldBeOfType<int[]>();
 
             converted.SequenceEqual(fibonacci).ShouldBeTrue();
         }
@@ -63,11 +63,11 @@ namespace Bogosoft.Collections.Async.Tests
 
             var traversable = dates.ToTraversable();
 
-            (traversable is IEnumerableAsync<DateTime>).ShouldBeTrue();
+            (traversable is IAsyncEnumerable<DateTime>).ShouldBeTrue();
 
             var list = await traversable.ToListAsync();
 
-            list.ShouldBeType<List<DateTime>>();
+            list.ShouldBeOfType<List<DateTime>>();
 
             list.SequenceEqual(dates).ShouldBeTrue();
         }
@@ -91,7 +91,7 @@ namespace Bogosoft.Collections.Async.Tests
 
             var target = new string[strings.Length];
 
-            (await traversable.CopyToAsync(target, 0, strings.Length)).ShouldEqual(strings.Length);
+            (await traversable.CopyToAsync(target, 0, strings.Length)).ShouldBe(strings.Length);
 
             target.SequenceEqual(strings).ShouldBeTrue();
         }
@@ -105,15 +105,15 @@ namespace Bogosoft.Collections.Async.Tests
 
             var traversable = ints.ToTraversable();
 
-            (await traversable.CopyToAsync(target, 3, 3)).ShouldEqual(3);
+            (await traversable.CopyToAsync(target, 3, 3)).ShouldBe(3);
 
             for(var i = 0; i < 4; i++)
             {
-                target[i].ShouldEqual(0);
+                target[i].ShouldBe(0);
             }
 
-            target[4].ShouldEqual(1);
-            target[5].ShouldEqual(2);
+            target[4].ShouldBe(1);
+            target[5].ShouldBe(2);
         }
 
         [TestCase]
@@ -132,7 +132,7 @@ namespace Bogosoft.Collections.Async.Tests
 
             var list = new List<Guid>(new Guid[count]);
 
-            (await traversable.CopyToAsync(list, 0, count)).ShouldEqual(count);
+            (await traversable.CopyToAsync(list, 0, count)).ShouldBe(count);
 
             list.SequenceEqual(guids).ShouldBeTrue();
         }
@@ -140,20 +140,20 @@ namespace Bogosoft.Collections.Async.Tests
         [TestCase]
         public async Task CanCreateSequenceFromVariadicArgumentsAsync()
         {
-            var sequence = EnumerableAsync<int>.From(0, 1, 2, 3, 4);
+            var sequence = AsyncEnumerable<int>.From(0, 1, 2, 3, 4);
 
-            (sequence is IEnumerableAsync<int>).ShouldBeTrue();
+            (sequence is IAsyncEnumerable<int>).ShouldBeTrue();
 
-            using (var cursor = await sequence.GetEnumeratorAsync())
+            using (var enumerator = sequence.GetEnumerator())
             {
-                (await cursor.MoveNextAsync()).ShouldBeTrue();
+                (await enumerator.MoveNextAsync()).ShouldBeTrue();
 
-                (await cursor.GetCurrentAsync()).ShouldEqual(0);
+                enumerator.Current.ShouldBe(0);
             }
         }
 
         [TestCase]
-        public async Task EmptyAsyncEnumeratorThrowsNotSupportedExceptionOnGetCurrentAsync()
+        public void EmptyAsyncEnumeratorThrowsNotSupportedExceptionOnGetCurrent()
         {
             var cursor = AsyncEnumerator<int>.Empty;
 
@@ -161,7 +161,7 @@ namespace Bogosoft.Collections.Async.Tests
 
             try
             {
-                await cursor.GetCurrentAsync();
+                var ignored = cursor.Current;
             }
             catch (NotSupportedException e)
             {
@@ -170,7 +170,7 @@ namespace Bogosoft.Collections.Async.Tests
 
             exception.ShouldNotBeNull();
 
-            exception.ShouldBeType<NotSupportedException>();
+            exception.ShouldBeOfType<NotSupportedException>();
         }
     }
 }

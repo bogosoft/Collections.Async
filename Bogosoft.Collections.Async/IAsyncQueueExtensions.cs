@@ -6,7 +6,7 @@ namespace Bogosoft.Collections.Async
     /// <summary>
     /// Extended functionality for the <see cref="IAsyncQueue{T}"/> contract.
     /// </summary>
-    public static class QueueExtensions
+    public static class IAsyncQueueExtensions
     {
         /// <summary>
         /// Clear the current queue of all of its queued items. Calling this method is equivalent to calling

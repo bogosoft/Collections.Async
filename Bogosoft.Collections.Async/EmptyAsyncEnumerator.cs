@@ -6,13 +6,13 @@ namespace Bogosoft.Collections.Async
 {
     struct EmptyAsyncEnumerator<T> : IAsyncEnumerator<T>
     {
-        public void Dispose()
+        public T Current
         {
+            get { throw new NotSupportedException(); }
         }
 
-        public Task<T> GetCurrentAsync(CancellationToken token)
+        public void Dispose()
         {
-            throw new NotSupportedException();
         }
 
         public Task<bool> MoveNextAsync(CancellationToken token) => Task.FromResult(false);

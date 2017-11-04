@@ -1,14 +1,14 @@
 ﻿namespace Bogosoft.Collections.Async
 {
     /// <summary>
-    /// Provides a set of static methods for working with <see cref="IEnumerableAsync{T}"/> types.
+    /// Provides a set of static methods for working with <see cref="IAsyncEnumerable{T}"/> types.
     /// </summary>
-    public static class EnumerableAsync<T>
+    public static class AsyncEnumerable<T>
     {
         /// <summary>
         /// Get an empty asynchronously enumerable sequence.
         /// </summary>
-        public static IEnumerableAsync<T> Empty => new EmptySequence<T>();
+        public static IAsyncEnumerable<T> Empty => new EmptyAsyncSequence<T>();
 
         /// <summary>
         /// Create an asynchronously enumerable sequence from one or more given items.
@@ -17,9 +17,9 @@
         /// <returns>
         /// An asynchronously enumerable sequence consisting of the given items.
         /// </returns>
-        public static IEnumerableAsync<T> From(params T[] items)
+        public static IAsyncEnumerable<T> From(params T[] items)
         {
-            return new EnumerableSequence<T>(items);
+            return new AsyncEnumerableSequence<T>(items);
         }
     }
 }
