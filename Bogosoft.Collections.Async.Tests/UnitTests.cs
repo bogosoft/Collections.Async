@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Bogosoft.Collections.Async.Tests
 {
     [TestFixture, Category("Unit")]
-    public class EnumerableAsyncTests
+    public class UnitTests
     {
         protected IEnumerable<int> RandomIntegers
         {
