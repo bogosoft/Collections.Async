@@ -56,7 +56,7 @@
     <Compile Include="IAsyncEnumerable.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="QueueExtensions.cs" />
+    <Compile Include="IAsyncQueueExtensions.cs" />
     <Compile Include="AsyncEnumerable.cs" />
     <Compile Include="IAsyncEnumerableExtensions.cs" />
     <Compile Include="EnumerableAsyncException.cs" />
