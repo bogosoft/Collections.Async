@@ -15,7 +15,7 @@ namespace Bogosoft.Collections.Async
         /// <returns>An asynchronously enumerable object.</returns>
         public static IAsyncEnumerable<T> ToTraversable<T>(this IEnumerable<T> source)
         {
-            return new EnumerableSequence<T>(source);
+            return new AsyncEnumerableSequence<T>(source);
         }
     }
 }

@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace Bogosoft.Collections.Async
 {
-    class EnumerableSequence<T> : IAsyncEnumerable<T>
+    class AsyncEnumerableSequence<T> : IAsyncEnumerable<T>
     {
         class Enumerator : IAsyncEnumerator<T>
         {
@@ -37,7 +37,7 @@ namespace Bogosoft.Collections.Async
 
         IEnumerable<T> enumerable;
 
-        public EnumerableSequence(IEnumerable<T> enumerable)
+        public AsyncEnumerableSequence(IEnumerable<T> enumerable)
         {
             this.enumerable = enumerable;
         }

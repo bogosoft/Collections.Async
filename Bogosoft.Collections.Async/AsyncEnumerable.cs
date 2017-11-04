@@ -19,7 +19,7 @@
         /// </returns>
         public static IAsyncEnumerable<T> From(params T[] items)
         {
-            return new EnumerableSequence<T>(items);
+            return new AsyncEnumerableSequence<T>(items);
         }
     }
 }
