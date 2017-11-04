@@ -8,7 +8,7 @@ namespace Bogosoft.Collections.Async
     /// <summary>
     /// Provides a set of static methods for working with <see cref="IAsyncEnumerable{T}"/> types.
     /// </summary>
-    public static class EnumerableAsyncExtensions
+    public static class IAsyncEnumerableExtensions
     {
         /// <summary>
         /// Copy items from the current enumerable structure sequentially to a target indexable collection.

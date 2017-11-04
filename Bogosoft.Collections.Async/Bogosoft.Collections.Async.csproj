@@ -58,7 +58,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueueExtensions.cs" />
     <Compile Include="AsyncEnumerable.cs" />
-    <Compile Include="EnumerableAsyncExtensions.cs" />
+    <Compile Include="IAsyncEnumerableExtensions.cs" />
     <Compile Include="EnumerableAsyncException.cs" />
   </ItemGroup>
   <ItemGroup>
