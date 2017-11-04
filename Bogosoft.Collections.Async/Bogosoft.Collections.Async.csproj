@@ -42,7 +42,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AsyncQueue.cs" />
     <Compile Include="CountExtensions.cs" />
     <Compile Include="AsyncEnumerator.cs" />
     <Compile Include="AsyncEnumeratorExtensions.cs" />
