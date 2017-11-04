@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace Bogosoft.Collections.Async
 {
-    class EmptySequence<T> : IEnumerableAsync<T>
+    class EmptySequence<T> : IAsyncEnumerable<T>
     {
         public Task<IAsyncEnumerator<T>> GetEnumeratorAsync(CancellationToken token)
         {

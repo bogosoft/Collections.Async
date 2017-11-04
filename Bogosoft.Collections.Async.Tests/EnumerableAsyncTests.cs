@@ -32,7 +32,7 @@ namespace Bogosoft.Collections.Async.Tests
 
             (ints is IEnumerable<int>).ShouldBeTrue();
 
-            (ints.ToTraversable() is IEnumerableAsync<int>).ShouldBeTrue();
+            (ints.ToTraversable() is IAsyncEnumerable<int>).ShouldBeTrue();
         }
 
         [TestCase]
@@ -42,7 +42,7 @@ namespace Bogosoft.Collections.Async.Tests
 
             var traversable = fibonacci.ToTraversable();
 
-            (traversable is IEnumerableAsync<int>).ShouldBeTrue();
+            (traversable is IAsyncEnumerable<int>).ShouldBeTrue();
 
             var converted = await traversable.ToArrayAsync();
 
@@ -63,7 +63,7 @@ namespace Bogosoft.Collections.Async.Tests
 
             var traversable = dates.ToTraversable();
 
-            (traversable is IEnumerableAsync<DateTime>).ShouldBeTrue();
+            (traversable is IAsyncEnumerable<DateTime>).ShouldBeTrue();
 
             var list = await traversable.ToListAsync();
 
@@ -142,7 +142,7 @@ namespace Bogosoft.Collections.Async.Tests
         {
             var sequence = EnumerableAsync<int>.From(0, 1, 2, 3, 4);
 
-            (sequence is IEnumerableAsync<int>).ShouldBeTrue();
+            (sequence is IAsyncEnumerable<int>).ShouldBeTrue();
 
             using (var cursor = await sequence.GetEnumeratorAsync())
             {

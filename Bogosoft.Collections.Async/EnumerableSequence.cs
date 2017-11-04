@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace Bogosoft.Collections.Async
 {
-    class EnumerableSequence<T> : IEnumerableAsync<T>
+    class EnumerableSequence<T> : IAsyncEnumerable<T>
     {
         struct Enumerator : IAsyncEnumerator<T>
         {

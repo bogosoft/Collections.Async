@@ -7,7 +7,7 @@ namespace Bogosoft.Collections.Async
     /// Represents an asynchronous enumerable data structure.
     /// </summary>
     /// <typeparam name="T">The type of the items capable of being enumerated.</typeparam>
-    public interface IEnumerableAsync<T>
+    public interface IAsyncEnumerable<T>
     {
         /// <summary>
         /// Get an asynchronous enumerator.
