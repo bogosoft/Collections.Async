@@ -32,7 +32,7 @@ namespace Bogosoft.Collections.Async.Tests
 
             (ints is IEnumerable<int>).ShouldBeTrue();
 
-            (ints.ToTraversable() is IAsyncEnumerable<int>).ShouldBeTrue();
+            (ints.ToAsyncEnumerable() is IAsyncEnumerable<int>).ShouldBeTrue();
         }
 
         [TestCase]
@@ -40,7 +40,7 @@ namespace Bogosoft.Collections.Async.Tests
         {
             var fibonacci = new int[] { 0, 1, 1, 2, 3, 5, 8, 13 };
 
-            var traversable = fibonacci.ToTraversable();
+            var traversable = fibonacci.ToAsyncEnumerable();
 
             (traversable is IAsyncEnumerable<int>).ShouldBeTrue();
 
@@ -61,7 +61,7 @@ namespace Bogosoft.Collections.Async.Tests
                 DateTime.Now.AddDays(2)
             };
 
-            var traversable = dates.ToTraversable();
+            var traversable = dates.ToAsyncEnumerable();
 
             (traversable is IAsyncEnumerable<DateTime>).ShouldBeTrue();
 
@@ -77,7 +77,7 @@ namespace Bogosoft.Collections.Async.Tests
         {
             var ints = RandomIntegers.ToArray();
 
-            var traversable = ints.ToTraversable();
+            var traversable = ints.ToAsyncEnumerable();
 
             ints.SequenceEqual(await traversable.ToArrayAsync()).ShouldBeTrue();
         }
@@ -87,7 +87,7 @@ namespace Bogosoft.Collections.Async.Tests
         {
             var strings = new string[] { "one", "two", "three", "four", "five" };
 
-            var traversable = strings.ToTraversable();
+            var traversable = strings.ToAsyncEnumerable();
 
             var target = new string[strings.Length];
 
@@ -103,7 +103,7 @@ namespace Bogosoft.Collections.Async.Tests
 
             var target = new int[ints.Length];
 
-            var traversable = ints.ToTraversable();
+            var traversable = ints.ToAsyncEnumerable();
 
             (await traversable.CopyToAsync(target, 3, 3)).ShouldBe(3);
 
@@ -128,7 +128,7 @@ namespace Bogosoft.Collections.Async.Tests
                 guids[i] = Guid.NewGuid();
             }
 
-            var traversable = guids.ToTraversable();
+            var traversable = guids.ToAsyncEnumerable();
 
             var list = new List<Guid>(new Guid[count]);
 
