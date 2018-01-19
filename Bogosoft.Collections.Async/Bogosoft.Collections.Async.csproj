@@ -3,7 +3,7 @@
 		<AssemblyVersion>2.0.1</AssemblyVersion>
 		<Authors>Clayton Roth</Authors>
 		<Company>Bogosoft</Company>
-		<Copyright>Copyright © 2017</Copyright>
+		<Copyright>Copyright © 2018</Copyright>
 		<Description>An asynchronous implementation of the iterator pattern for .NET.</Description>
 		<FileVersion>2.0.1</FileVersion>
 		<PackageLicenseUrl>https://raw.githubusercontent.com/bogosoft/Collections.Async/master/LICENSE</PackageLicenseUrl>
