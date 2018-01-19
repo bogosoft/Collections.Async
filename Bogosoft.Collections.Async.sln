@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27004.2005
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bogosoft.Collections.Async", "Bogosoft.Collections.Async\Bogosoft.Collections.Async.csproj", "{988C7AC7-0870-4784-BBBA-1673B5562287}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bogosoft.Collections.Async", "Bogosoft.Collections.Async\Bogosoft.Collections.Async.csproj", "{988C7AC7-0870-4784-BBBA-1673B5562287}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bogosoft.Collections.Async.Tests", "Bogosoft.Collections.Async.Tests\Bogosoft.Collections.Async.Tests.csproj", "{8D067E0D-576B-4C72-82F2-D69C76A798E8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bogosoft.Collections.Async.Tests", "Bogosoft.Collections.Async.Tests\Bogosoft.Collections.Async.Tests.csproj", "{8D067E0D-576B-4C72-82F2-D69C76A798E8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
