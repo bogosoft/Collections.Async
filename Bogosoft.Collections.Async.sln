@@ -3,9 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27004.2005
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bogosoft.Collections.Async", "Bogosoft.Collections.Async\Bogosoft.Collections.Async.csproj", "{988C7AC7-0870-4784-BBBA-1673B5562287}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bogosoft.Collections.Async", "Bogosoft.Collections.Async\Bogosoft.Collections.Async.csproj", "{988C7AC7-0870-4784-BBBA-1673B5562287}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bogosoft.Collections.Async.Tests", "Bogosoft.Collections.Async.Tests\Bogosoft.Collections.Async.Tests.csproj", "{8D067E0D-576B-4C72-82F2-D69C76A798E8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bogosoft.Collections.Async.Tests", "Bogosoft.Collections.Async.Tests\Bogosoft.Collections.Async.Tests.csproj", "{8D067E0D-576B-4C72-82F2-D69C76A798E8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bogosoft.Collections.Async.Fluent", "Bogosoft.Collections.Async.Fluent\Bogosoft.Collections.Async.Fluent.csproj", "{AB96BFE3-4BB3-4D96-BEBA-E7F2BC542230}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bogosoft.Collections.Async.Fluent.Tests", "Bogosoft.Collections.Async.Fluent.Tests\Bogosoft.Collections.Async.Fluent.Tests.csproj", "{6E7C8873-A1DA-4639-9449-D99257083F8D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +25,14 @@ Global
 		{8D067E0D-576B-4C72-82F2-D69C76A798E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8D067E0D-576B-4C72-82F2-D69C76A798E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8D067E0D-576B-4C72-82F2-D69C76A798E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB96BFE3-4BB3-4D96-BEBA-E7F2BC542230}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB96BFE3-4BB3-4D96-BEBA-E7F2BC542230}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB96BFE3-4BB3-4D96-BEBA-E7F2BC542230}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB96BFE3-4BB3-4D96-BEBA-E7F2BC542230}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E7C8873-A1DA-4639-9449-D99257083F8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E7C8873-A1DA-4639-9449-D99257083F8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E7C8873-A1DA-4639-9449-D99257083F8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E7C8873-A1DA-4639-9449-D99257083F8D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
