@@ -13,6 +13,12 @@ namespace Bogosoft.Collections.Async
         IMutableAsyncCollection<(TKey Key, TValue Value)>
     {
         /// <summary>
+        /// Get or set a value with a given key.
+        /// </summary>
+        /// <param name="key">An object of the key type.</param>
+        new AsyncValue<TValue> this[TKey key] { get; set; }
+
+        /// <summary>
         /// Remove an entry from the current dictionary by a given key.
         /// </summary>
         /// <param name="key">The key of the associated entry to be removed.</param>

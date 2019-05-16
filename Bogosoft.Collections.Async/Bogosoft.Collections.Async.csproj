@@ -1,18 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<AssemblyVersion>3.0.0</AssemblyVersion>
+		<AssemblyVersion>3.0.1</AssemblyVersion>
 		<Authors>Clayton Roth</Authors>
 		<Company>Bogosoft</Company>
 		<Copyright>Copyright © 2018</Copyright>
 		<Description>An asynchronous implementation of the iterator pattern for .NET Standard 2.0.</Description>
-		<FileVersion>3.0.0</FileVersion>
+		<FileVersion>3.0.1</FileVersion>
 		<PackageLicenseUrl>https://raw.githubusercontent.com/bogosoft/Collections.Async/master/LICENSE</PackageLicenseUrl>
 		<PackageProjectUrl>https://github.com/bogosoft/Collections.Async</PackageProjectUrl>
 		<PackageTags>async collection sequence enumerator enumerable</PackageTags>
 		<RepositoryUrl>https://github.com/bogosoft/Collections.Async</RepositoryUrl>
 		<TargetFramework>netstandard2.0</TargetFramework>
 		<Title>Bogosoft.Collections.Async</Title>
-		<Version>3.0.0</Version>
+		<Version>3.0.1</Version>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.0|AnyCPU'">
 		<DocumentationFile>bin\Debug\netstandard2.0\Bogosoft.Collections.Async.xml</DocumentationFile>
