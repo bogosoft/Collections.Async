@@ -8,6 +8,6 @@
         /// <summary>
         /// Get an empty asynchronous enumerator.
         /// </summary>
-        public static IAsyncEnumerator<T> Empty => new EmptyAsyncEnumerator<T>();
+        public static IAsyncEnumerator<T> Empty => new EmptyAsyncSequence<T>.Enumerator();
     }
 }
