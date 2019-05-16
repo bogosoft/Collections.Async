@@ -1,10 +1,22 @@
-﻿namespace Bogosoft.Collections.Async
+﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
+
+namespace Bogosoft.Collections.Async
 {
     class EmptyAsyncSequence<T> : IAsyncEnumerable<T>
     {
-        public IAsyncEnumerator<T> GetEnumerator()
+        internal class Enumerator : IAsyncEnumerator<T>
         {
-            return new EmptyAsyncEnumerator<T>();
+            public T Current => throw new NotSupportedException();
+
+            public void Dispose()
+            {
+            }
+
+            public Task<bool> MoveNextAsync(CancellationToken token) => Task.FromResult(false);
         }
+
+        public IAsyncEnumerator<T> GetEnumerator() => new Enumerator();
     }
 }

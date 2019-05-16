@@ -1,2 +1,2 @@
 # Collections.Async
-Collection-related types designed for asynchronous operations.
+An asynchronous implementation of the iterator pattern for .NET Standard 2.0.

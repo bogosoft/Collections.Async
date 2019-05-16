@@ -8,7 +8,7 @@ namespace Bogosoft.Collections.Async
     {
         class Enumerator : IAsyncEnumerator<T>
         {
-            IEnumerator<T> enumerator;
+            readonly IEnumerator<T> enumerator;
 
             public T Current => enumerator.Current;
 
@@ -35,7 +35,7 @@ namespace Bogosoft.Collections.Async
             }
         }
 
-        IEnumerable<T> enumerable;
+        readonly IEnumerable<T> enumerable;
 
         public AsyncEnumerableSequence(IEnumerable<T> enumerable)
         {
