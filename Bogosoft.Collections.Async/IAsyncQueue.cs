@@ -8,17 +8,8 @@ namespace Bogosoft.Collections.Async
     /// Indicates that an implementation is capable of performing queue operations asynchronously.
     /// </summary>
     /// <typeparam name="T">The type of the queued items.</typeparam>
-    public interface IAsyncQueue<T> : IAsyncEnumerable<T>
+    public interface IAsyncQueue<T> : IAsyncCollection<T>
     {
-        /// <summary>
-        /// Clear the current queue of all of its queued items.
-        /// </summary>
-        /// <param name="token">A <see cref="CancellationToken"/> object.</param>
-        /// <returns>
-        /// A value indicating whether or not the clear operation succeeded.
-        /// </returns>
-        Task<bool> ClearAsync(CancellationToken token);
-
         /// <summary>
         /// Remove and return the next item in the current queue.
         /// </summary>

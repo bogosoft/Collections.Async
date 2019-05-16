@@ -9,21 +9,6 @@ namespace Bogosoft.Collections.Async
     public static class IAsyncQueueExtensions
     {
         /// <summary>
-        /// Clear the current queue of all of its queued items. Calling this method is equivalent to calling
-        /// <see cref="IAsyncQueue{T}.ClearAsync(CancellationToken)"/> with a value of
-        /// <see cref="CancellationToken.None"/>.
-        /// </summary>
-        /// <typeparam name="T">The type of the queued items.</typeparam>
-        /// <param name="queue">The current <see cref="IAsyncQueue{T}"/> implementation.</param>
-        /// <returns>
-        /// A value indicating whether or not the clear operation succeeded.
-        /// </returns>
-        public static Task<bool> ClearAsync<T>(this IAsyncQueue<T> queue)
-        {
-            return queue.ClearAsync(CancellationToken.None);
-        }
-
-        /// <summary>
         /// Remove and return the next item in the current queue. Calling this method is equivalent to calling
         /// <see cref="IAsyncQueue{T}.EnqueueAsync(T, CancellationToken)"/> with a value of
         /// <see cref="CancellationToken.None"/>.
